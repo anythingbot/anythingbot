@@ -2,12 +2,12 @@
 
 ## Status
 
-[![Build Status](https://travis-ci.org/botwillacceptanything/botwillacceptanything.svg?branch=master)](https://travis-ci.org/botwillacceptanything/botwillacceptanything)
-[![Code Climate](https://codeclimate.com/github/botwillacceptanything/botwillacceptanything/badges/gpa.svg)](https://codeclimate.com/github/botwillacceptanything/botwillacceptanything)
-[![Coverage Status](https://coveralls.io/repos/botwillacceptanything/botwillacceptanything/badge.png?branch=master)](https://coveralls.io/r/botwillacceptanything/botwillacceptanything?branch=master)
-[![Dependency Status](https://gemnasium.com/botwillacceptanything/botwillacceptanything.svg)](https://gemnasium.com/botwillacceptanything/botwillacceptanything)
+[![Build Status](https://travis-ci.org/anythingbot/anythingbot.svg?branch=master)](https://travis-ci.org/anythingbot/anythingbot)
+[![Code Climate](https://codeclimate.com/github/anythingbot/anythingbot/badges/gpa.svg)](https://codeclimate.com/github/anythingbot/anythingbot)
+[![Coverage Status](https://coveralls.io/repos/anythingbot/anythingbot/badge.png?branch=master)](https://coveralls.io/r/anythingbot/anythingbot?branch=master)
+[![Dependency Status](https://gemnasium.com/anythingbot/anythingbot.svg)](https://gemnasium.com/anythingbot/anythingbot)
 [![Pinkie Pie Approval Status](http://dosowisko.net/pinkiepieapproved.svg)](https://www.youtube.com/watch?v=FULyN9Ai-A0)
-[![tip for next commit](https://tip4commit.com/projects/43123.svg)](https://tip4commit.com/github/botwillacceptanything/botwillacceptanything)
+[![tip for next commit](https://tip4commit.com/projects/43123.svg)](https://tip4commit.com/github/anythingbot/anythingbot)
 
 ### *The project where anything goes, as long as the code allows it.*
 
@@ -15,13 +15,13 @@ A bot will automatically merge any PR on this repo that gets enough votes from t
 
 ## Getting Started
 
-* View the [open Pull Requests](https://github.com/botwillacceptanything/botwillacceptanything/pulls) to see what changes have been proposed
+* View the [open Pull Requests](https://github.com/anythingbot/anythingbot/pulls) to see what changes have been proposed
 * :star: **Star the repo**, or else your votes won't get counted
 * On a pull request thread, add your vote along with a short explanation and/or feedback to the author. The string `:+1:` (:+1:) anywhere within the comment makes the comment count as a vote *for* the PR to pass; conversely, the string `:-1:` (:-1:) anywhere within the comment makes the comment count as a vote *against* the PR.
 
 ## Contributing
 
-Anyone can create a pull request, and it is greatly appreciated by the community. In order for a pull request to be accepted, the bot has requested that it meets the criteria in its [Definition of Done](https://github.com/botwillacceptanything/botwillacceptanything/blob/master/DoD.md). If you're looking for ideas, please look at [ideas.md](https://github.com/botwillacceptanything/botwillacceptanything/blob/master/ideas.md), and join us in our [IRC](http://kiwiirc.com/client/irc.freenode.net/anythingbot) for ideas or advice on how to implement something.
+Anyone can create a pull request, and it is greatly appreciated by the community. In order for a pull request to be accepted, the bot has requested that it meets the criteria in its [Definition of Done](https://github.com/anythingbot/anythingbot/blob/master/DoD.md). If you're looking for ideas, please look at [ideas.md](https://github.com/anythingbot/anythingbot/blob/master/ideas.md), and join us in our [IRC](http://kiwiirc.com/client/irc.freenode.net/anythingbot) for ideas or advice on how to implement something.
 
 ## Community
 
@@ -31,17 +31,17 @@ The bot is [**@anythingbot** on Twitter.](https://twitter.com/anythingbot/)
 
 ## Running Servers
 
-The bot runs on a 1GB DigitalOcean VPS in SF at [botwillacceptanything.com](http://botwillacceptanything.com) without root access. Port 80 is a proxy to port 3000 via nginx.
+The bot runs on a 1GB DigitalOcean VPS in SF at [anythingbot.org:3000](http://anythingbot.org:3000) without root access. Previously port 80 was a proxy to port 3000 via nginx.
 
 ## Bot Webserver Paths
 
 The bot has a built-in webserver for monitoring its current state.
 
-* [Homepage](http://botwillacceptanything.com/)
-* [Recent Commits](http://botwillacceptanything.com/commits)
-* [Stdout Log](http://botwillacceptanything.com/stdout)
-* [Statistics](http://botwillacceptanything.com/statistics)
-* [Current Voting](http://botwillacceptanything.com/votes)
+* [Homepage](http://anythingbot.org:3000/)
+* [Recent Commits](http://anythingbot.org:3000/commits)
+* [Stdout Log](http://anythingbot.org:3000/stdout)
+* [Statistics](http://anythingbot.org:3000/statistics)
+* [Current Voting](http://anythingbot.org:3000/votes)
 
 ## Running the bot locally to test changes
 
@@ -62,7 +62,7 @@ $ cat configs/custom.js
             port: 3000
         },
         user: "YOUR_GITHUB_USERNAME",
-        repo: "botwillacceptanything",
+        repo: "anythingbot",
         githubAuth: {
             type: "oauth",
             token: "YOUR_OAUTH_TOKEN"

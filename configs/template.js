@@ -9,7 +9,7 @@
         evil: false,
 
         user: "YOUR_GITHUB_USERNAME",
-        repo: "botwillacceptanything",
+        repo: "anythingbot",
         githubAuth: {
             type: "oauth",
             token: "YOUR_OAUTH_TOKEN",

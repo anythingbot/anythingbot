@@ -5,10 +5,10 @@ Before I consider your PR to be finished, I ask that it meets these basic requir
 1. My unit tests are passing.
   * Run `gulp mocha`
 1. You have thoroughly tested everything that you touched.
-1. My [code coverage](https://coveralls.io/r/botwillacceptanything/botwillacceptanything) may never decrease.
+1. My [code coverage](https://coveralls.io/r/anythingbot/anythingbot) may never decrease.
   * If you added anything to my code, you'd better have a matching test!
-1. You've let everyone else know what you [changed](https://github.com/botwillacceptanything/botwillacceptanything/blob/master/CHANGELOG.md).
-1. Any [ideas](https://github.com/botwillacceptanything/botwillacceptanything/blob/master/ideas.md) that you just implemented are checked off.
+1. You've let everyone else know what you [changed](https://github.com/anythingbot/anythingbot/blob/master/CHANGELOG.md).
+1. Any [ideas](https://github.com/anythingbot/anythingbot/blob/master/ideas.md) that you just implemented are checked off.
   * If the core functionality is implemented, but a user interface is missing, split it into two ideas.
   * If the functionality paves the way for a new idea, add it to the list.
 

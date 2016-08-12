@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-docker push korczis/botwillacceptanything
+docker push korczis/anythingbot
 

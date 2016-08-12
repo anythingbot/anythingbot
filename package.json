@@ -1,5 +1,5 @@
 {
-  "name": "botwillacceptanything",
+  "name": "anythingbot",
   "version": "0.0.1",
   "description": "An autonomous program that accepts pull requests for itself",
   "main": "main.js",
@@ -34,21 +34,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/botwillacceptanything/botwillacceptanything.git"
+    "url": "git://github.com/anythingbot/anythingbot.git"
   },
   "keywords": [
     "nomic",
     "autonomous",
     "sentient",
     "skynet",
-    "botwillacceptanything"
+    "anythingbot"
   ],
-  "author": "Bot W. Acceptanything <botwillacceptanything@gmail.com>",
+  "author": "Bot W. Acceptanything <anythingbot@anythingbot.org>",
   "license": "ASL",
   "bugs": {
-    "url": "https://github.com/botwillacceptanything/botwillacceptanything/issues"
+    "url": "https://github.com/anythingbot/anythingbot/issues"
   },
-  "homepage": "https://github.com/botwillacceptanything/botwillacceptanything",
+  "homepage": "https://github.com/anythingbot/anythingbot",
   "scripts": {
     "main": "node main.js",
     "test": "gulp"

@@ -19,7 +19,7 @@ match.
 #### Definition. 192 bwaadcasting.
 
 It is possible to use the same technique as
-https://github.com/botwillacceptanything/botwillacceptanything/issues/192
+https://github.com/anythingbot/anythingbot/issues/192
 to coordinate network init activity for small networks. New issues in
 github function as channels for the bots. They look like
 ISSUES/#DESCRIPTIONHERE which refers to a URL like the one above.
@@ -247,7 +247,7 @@ List of behaviors:
  - tester: perform-trial(PR#)
 
 The clerk behavior is a little awkward: a bot is the clerk if and only if
-the github user in the config is botwillacceptanything, which is known at
+the github user in the config is anythingbot, which is known at
 startup; nevertheless, it will go through a netinit followed by
 become-clerk. For all other bots, netinit is followed by contacting the
 clerk by hitting a http endpoint.
@@ -346,7 +346,7 @@ it to scale, you should redesign it by throwing the spec away and starting
 over :-)
 
 Advisory: this approach has a single point of failure, the original
-botwillacceptanything.com (the only bot to have the role of clerk, see
+anythingbot.org (the only bot to have the role of clerk, see
 below). There are ways to get around this, but I don't go into them at
 all.
 

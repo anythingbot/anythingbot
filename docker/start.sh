@@ -2,9 +2,9 @@
 
 cd /src
 
-git clone http://github.com/botwillacceptanything/botwillacceptanything.git
+git clone http://github.com/anythingbot/anythingbot.git
 
-cd botwillacceptanything
+cd anythingbot
 
 npm install
 

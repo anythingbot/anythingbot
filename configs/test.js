@@ -5,6 +5,6 @@ module.exports = {
   irc: {
     host: 'localhost',
     user: 'TestBot',
-    channel: '#botwillacceptanything',
+    channel: '#anythingbot',
   },
 };

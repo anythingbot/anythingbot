@@ -18,7 +18,7 @@ time of page load corresponding to the remaining duration of the current youtube
 video / soundcloud track. Point 2.2 can be addressed with websockets
 
 4. Example application: "Anything Request Live". Create a reddit thread in
-/r/botwillacceptanything with the title "ARL 5/25/2015 8:00pm PDT". The bot polls
+/r/anythingbot with the title "ARL 5/25/2015 8:00pm PDT". The bot polls
 the subreddit every 20 minutes and puts up a sign (akin to the "voting started"
 sign/template for github PRs) saying voting has started for the ARL program that
 will air at the time specified in the title of the thread. Reddit users then
@@ -51,7 +51,7 @@ announcement thread) the video feed is preempted with:
 
 	5.4 schedule the program air date and time
 
-The bot can poll /r/botwillacceptanything once every 20 minutes looking for ARL
+The bot can poll /r/anythingbot once every 20 minutes looking for ARL
 announcement threads. Once it sees a thread, it will check for sanity (the air
 date must be in the future, among other things) and post a "voting started" sign
 with the voting rules. It will also check the comments. Any comments with

@@ -1,3 +1,3 @@
 #! /usr/bin/env bash
 
-docker build -t korczis/botwillacceptanything .
+docker build -t korczis/anythingbot .
