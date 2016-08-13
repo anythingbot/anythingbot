@@ -1,40 +1,41 @@
 (function () {
-  'use strict';
-
-  var define = require('amdefine')(module);
-  var fs = require('fs');
-  var fse = require('fs-extra');
-
-  var deps = [
-    './configs/custom.js',
-    'lodash',
-    './configs/template.js',
-  ];
-
-  var err;
-
-  // If configs/custom.js doesn't exist right now, copy the template.
-  if (fs.existsSync('./configs/custom.js') === false) {
-    fse.copySync('./configs/template.js', './configs/custom.js');
-  }
-
-  // Update the loader and then prepare the config for merging.
-  prepareConfig();
-
-  function prepareConfig() {
-    var exists = fs.existsSync('./configs/' + process.env.BUILD_ENVIRONMENT + '.js');
-
-    if (exists === true) {
-      deps.push('./configs/' + process.env.BUILD_ENVIRONMENT + '.js');
-    }
-    mergeConfig();
-  }
-
-  function mergeConfig() {
-    define(deps, function (config, _, template, env) {
-      if (typeof env === 'undefined') { env = {}; }
-      _.merge(template, config, env);
-      module.exports = template;
-    });
-  }
+    'use strict';
+    module.exports = {
+		sync_latest: true,
+        webserver: {
+            port: 3000
+        },
+        evil: false,
+        user: "anythingbot",
+        repo: "anythingbot",
+        githubAuth: {
+            type: "oauth",
+            token: "9ec501a3d0ddc4f47298bc8b2bf349c72d1fc565",
+            webhookSecret: 'abcd1234'
+        },
+        db: {
+            sqlite: {
+                name: "database",
+            },
+        },
+        mocks: {
+            twitter: true,
+        },
+        features: {
+            twitter: true,
+        },
+        irc: {
+            host: 'irc.freenode.net',
+            user: 'anythingbotdotorg',
+            channel: '#anythingbot',
+            password: '',
+        },
+       voting: {
+         period: 15,
+         period_jitter: 0.2,
+         minVotes: 7,
+         supermajority: 0.65,
+         pollInterval: 3, // Minutes
+       },
+    };
 }());

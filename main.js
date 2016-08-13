@@ -101,10 +101,12 @@
         function main() {
             // find the hash of the current HEAD
             head(function (err, initial) {
+				console.log("Checking head...");
                 if (err) { return console.error('error checking HEAD:', err); }
 
                 // Unless config.sync_latest is enabled, don't pull the latest code.
                 // This is most commonly used for development.
+				Logger.info("config.sync_latest = " + config.sync_latest);
                 if (config.sync_latest !== true) { return initializeBotSystems(initial); }
 
                 // make sure we are in sync with the remote repo
