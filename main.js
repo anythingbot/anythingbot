@@ -99,6 +99,7 @@
         }
 
         function main() {
+			console.log("Initializing main.");
             // find the hash of the current HEAD
             head(function (err, initial) {
 				console.log("Checking head...");
