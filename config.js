@@ -41,4 +41,5 @@
          pollInterval: 3, // Minutes
        },
     };
+	console.log(module.exports);
 }());

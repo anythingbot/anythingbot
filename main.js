@@ -107,7 +107,7 @@
 
                 // Unless config.sync_latest is enabled, don't pull the latest code.
                 // This is most commonly used for development.
-				Logger.info("config.sync_latest = " + config.sync_latest);
+				console.log("config.sync_latest = " + config.sync_latest);
                 if (config.sync_latest !== true) { return initializeBotSystems(initial); }
 
                 // make sure we are in sync with the remote repo
