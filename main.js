@@ -126,11 +126,10 @@
             });
         }
 
-        integrations()
-            .then(main, function (err) {
+        integrations(main, function (err) {
                 Logger.error(err);
                 Logger.error(err.stack);
-            });
+        });
 
         process.on('uncaughtException', function (err) {
             console.error('UNCAUGHT ERROR: ' + err + '\n' + err.stack);
