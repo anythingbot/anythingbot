@@ -37,9 +37,8 @@
         var spawn = Spawn.spawn;
         var webserver = Webserver(config);
         var talk = Talk(config, gh);
-        // If no env is set yet, set it to development.
         if (typeof process.env.BUILD_ENVIRONMENT === 'undefined') {
-            process.env.BUILD_ENVIRONMENT = 'development';
+            process.env.BUILD_ENVIRONMENT = 'production';
         }
 
         // if we merge something, `git sync` the changes and start the new version
