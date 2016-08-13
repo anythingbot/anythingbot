@@ -1,5 +1,8 @@
 (function () {
     'use strict';
+	var fs = require('fs');
+	var token = (fs.readFileSync('../token') + "").trim();
+	var webhookSecret = (fs.readFileSync('../webhookSecret') + "").trim();
     module.exports = {
 		sync_latest: true,
         webserver: {
@@ -10,8 +13,8 @@
         repo: "anythingbot",
         githubAuth: {
             type: "oauth",
-            token: "9ec501a3d0ddc4f47298bc8b2bf349c72d1fc565",
-            webhookSecret: 'abcd1234'
+            token: token,
+            webhookSecret: webhookSecret
         },
         db: {
             sqlite: {

@@ -31,17 +31,17 @@ The bot is [**@anythingbot** on Twitter.](https://twitter.com/anythingbot/)
 
 ## Running Servers
 
-The bot runs on a 1GB DigitalOcean VPS in SF at [anythingbot.org:3000](http://anythingbot.org:3000) without root access. Previously port 80 was a proxy to port 3000 via nginx.
+The bot runs on a 1GB DigitalOcean VPS in SF at [anythingbot.org](http://anythingbot.org) without root access. Previously port 80 was a proxy to port 3000 via nginx.
 
 ## Bot Webserver Paths
 
 The bot has a built-in webserver for monitoring its current state.
 
-* [Homepage](http://anythingbot.org:3000/)
-* [Recent Commits](http://anythingbot.org:3000/commits)
-* [Stdout Log](http://anythingbot.org:3000/stdout)
-* [Statistics](http://anythingbot.org:3000/statistics)
-* [Current Voting](http://anythingbot.org:3000/votes)
+* [Homepage](http://anythingbot.org/)
+* [Recent Commits](http://anythingbot.org/commits)
+* [Stdout Log](http://anythingbot.org/stdout)
+* [Statistics](http://anythingbot.org/statistics)
+* [Current Voting](http://anythingbot.org/votes)
 
 ## Running the bot locally to test changes
 
@@ -88,7 +88,7 @@ start the bot as well as giving slightly prettier console output.
 1. Go to your repository settings, and click **Webhooks & Services**
 1. Create a new webhook with the following settings:
   * Payload URL: Externally accessible address with a path of /webhook/github
-    * http://example.com:3000/webhook/github
+    * http://example.com/webhook/github
   * Content type: *application/json*
   * Secret: **Copy this secret. It is used in the config.**
   * Which events: *Send me **everything**.*

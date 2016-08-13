@@ -5,32 +5,32 @@
       xsi:schemaLocation="http://anythingbot.org/sitemap.xml
       http://anythingbot.org/sitemap.xml">
 <url>
-  <loc>http://anythingbot.org:3000/</loc>
+  <loc>http://anythingbot.org/</loc>
   <changefreq>always</changefreq>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>http://anythingbot.org:3000/stdout/</loc>
+  <loc>http://anythingbot.org/stdout/</loc>
   <changefreq>always</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://anythingbot.org:3000/commits/</loc>
+  <loc>http://anythingbot.org/commits/</loc>
   <changefreq>always</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://anythingbot.org:3000/statistics/</loc>
+  <loc>http://anythingbot.org/statistics/</loc>
   <changefreq>always</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://anythingbot.org:3000/video/</loc>
+  <loc>http://anythingbot.org/video/</loc>
   <changefreq>always</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>http://anythingbot.org:3000/votes/</loc>
+  <loc>http://anythingbot.org/votes/</loc>
   <changefreq>always</changefreq>
   <priority>0.80</priority>
 </url>
