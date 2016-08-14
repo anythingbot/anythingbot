@@ -3,14 +3,22 @@
 	var fs = require('fs');
 	var token = (fs.readFileSync('../token') + "").trim();
 	var webhookSecret = (fs.readFileSync('../webhookSecret') + "").trim();
+	var sync_latest;
+	if ((fs.readFileSync('../sync_latest') + "").trim() == "yes") {
+	  sync_latest = true;
+	} else {
+	  sync_latest = false;
+	}
+	var user = (fs.readFileSync('../user') + "").trim();
+	var repo = (fs.readFileSync('../repo') + "").trim();
     module.exports = {
-		sync_latest: true,
+		sync_latest: sync_latest,
         webserver: {
             port: 3000
         },
         evil: false,
-        user: "anythingbot",
-        repo: "anythingbot",
+        user: user,
+        repo: repo,
         githubAuth: {
             type: "oauth",
             token: token,
