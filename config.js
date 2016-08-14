@@ -41,5 +41,8 @@
          pollInterval: 3, // Minutes
        },
     };
-	console.log(module.exports);
+	var safeconfig = {};
+	Object.keys(module.exports).forEach(function (k) {
+		if (k != 'githubAuth') { safeconfig[k] = module.exports[k]; }});
+	console.log(safeconfig);
 }());
