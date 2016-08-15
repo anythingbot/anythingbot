@@ -10,3 +10,4 @@ This is changelog.
 - Added Badges
 - Added TravisCI Integration
 - Added CHANGELOG.md
+- Moved bot to anythingbot.org and github.com/anythingbot/anythingbot
