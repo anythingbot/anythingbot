@@ -44,9 +44,9 @@
        voting: {
          period: 15,
          period_jitter: 0.2,
-         minVotes: 7,
-         supermajority: 0.65,
-         pollInterval: 3, // Minutes
+         minVotes: 5,
+         supermajority: 0.55,
+         pollInterval: 1, // Minutes
        },
     };
 	var safeconfig = {};
