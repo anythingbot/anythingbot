@@ -3,11 +3,13 @@
 	var fs = require('fs');
 	var token = (fs.readFileSync('../token') + "").trim();
 	var webhookSecret = (fs.readFileSync('../webhookSecret') + "").trim();
-	var sync_latest;
+	var verify_webhooks;
+	if ((fs.readFileSync('../verify_webhooks') + "").trim() == "yes") {
+	  verify_webhooks = true;
+	}
+	var sync_latest = false;
 	if ((fs.readFileSync('../sync_latest') + "").trim() == "yes") {
 	  sync_latest = true;
-	} else {
-	  sync_latest = false;
 	}
 	var user = (fs.readFileSync('../user') + "").trim();
 	var repo = (fs.readFileSync('../repo') + "").trim();
@@ -22,7 +24,8 @@
         githubAuth: {
             type: "oauth",
             token: token,
-            webhookSecret: webhookSecret
+            webhookSecret: webhookSecret,
+			verify_webhooks: verify_webhooks
         },
         db: {
             sqlite: {
