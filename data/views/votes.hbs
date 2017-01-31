@@ -133,7 +133,8 @@ drawClock();
         <a href="{{this.pr.html_url}}" target="_blank">Pull Request</a>
       </li>
     {{else}}
-      <li>No votes in progress</li>
+      <li>No votes in progress for {{this.repo.user}}/{{this.repo.repo}}
+	  </li>
     {{/each}}
   </ul>
 {{/each}}
