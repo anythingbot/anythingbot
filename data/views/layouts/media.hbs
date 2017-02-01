@@ -5,7 +5,49 @@
         <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
         <script src="https://w.soundcloud.com/player/api.js"></script>
         <script src="/js/lib/soundcloud.js"></script>
+		<script src="/js/lib/cookie.js"></script>
         <script>
+
+
+function updateVideo(videomsg) {
+	var videoElt = document.createElement("div");
+	videoElt.innerHTML = videomsg.content;
+	document.getElementById('videodiv').appendChild(videoElt);
+}
+var host = window.document.location.host.replace(/:.*/,'');
+var ws = new WebSocket('ws://' + host + ':3003');
+ws.onmessage = function (event) {
+	updateVideo(JSON.parse(event.data));
+};
+
+function sendmsg(content) {
+	if (ws.readyState != WebSocket.OPEN) {
+		console.log("websocket is closed");
+		return;
+	}
+	if (! content) {
+		content = 'video';
+	}
+	var data = {
+		content: content
+	};
+	ws.send(JSON.stringify(data));
+	console.log("sent video message to server");
+}
+
+function sendpulse() {
+    var now = Date.now();
+	var handle = getCookie("handle");
+	sendmsg("" + now + "," + handle);
+}
+
+var pulse = 0;
+function pageLoaded() {
+	console.log("page loaded");
+	console.log("handle = " + getCookie("handle"));
+	pulse = setInterval(sendpulse,5000);
+}
+
 var state = {
     SCoffsetMilliseconds : 1000 * {{data.time}},
 };
@@ -15,7 +57,7 @@ var state = {
         <meta name="author" content="Sync Music Video">
         <link rel="stylesheet" type="text/css" href="/css/media.css" />
     </head>
-    <body><h1 id="Header">BWAA TV - The project where anything goes</h1>
+    <body onload="pageLoaded()"><h1 id="Header">BWAA TV - The project where anything goes</h1>
 
     <div class="Content">
         {{{body}}}
