@@ -45,5 +45,4 @@ name.txt
 
 # Editor configs
 *.sublime-project
-*.swp
 .idea
