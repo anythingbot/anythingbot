@@ -6,9 +6,146 @@
         <script src="/js/lib/cookie.js"></script>
         <script>
 
+function updateHello(hellomsg) {
+    var helloElt = document.createElement("div");
+    helloElt.innerHTML = hellomsg;
+    document.getElementById('hellodiv').appendChild(helloElt);
+}
+
+var host = window.document.location.host.replace(/:.*/, '');
+var ws = new WebSocket('ws://' + host + ':3010');
+ws.onmessage = function (event) {
+    updateHello(JSON.parse(event.data).content);
+};
+
+
 function setHandle() {
     var handleString = document.getElementById('handleInput').value;
     setCookie("handle",handleString,365);
+}
+
+var chrLookup = [
+	'', '', '', '', '', '', '', '', '', '\t', '\n', '', '', '', '', '',
+	'', '', '', '', '', '', '', '', '',   '',   '', '', '', '', '', '',
+	' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.',
+	'/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+	'>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+	'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[',
+	'\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+	'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+	'z', '{', '|', '}', '~'];
+
+function chr(n) {
+	if (n == 9 || n == 10 || (n >= 32 && n <= 126)) {
+		return chrLookup[n];
+	} else {
+		throw new Error("chr: invalid character");
+	}
+}
+
+function ispchr(n) {
+	return (n >= 33 && n <= 126);
+}
+
+function pchr(n) {
+	if (n >= 33 && n <= 126) {
+		return chrLookup[n];
+	} else {
+		throw new Error("pchr: invalid character");
+	}
+}
+
+var ordLookup = {
+	' ': 32, '$': 36, '(': 40, ',': 44, '0': 48, '4': 52, '8': 56, '<': 60,
+	'@': 64, 'D': 68, 'H': 72, 'L': 76, 'P': 80, 'T': 84, 'X': 88, '\\': 92,
+	'`': 96, 'd': 100, 'h': 104, 'l': 108, 'p': 112, 't': 116, 'x': 120,
+	'|': 124, '#': 35, "'": 39, '+': 43, '/': 47, '3': 51, '7': 55, ';': 59,
+	'?': 63, 'C': 67, 'G': 71, 'K': 75, 'O': 79, 'S': 83, 'W': 87, '[': 91,
+	'_': 95, 'c': 99, 'g': 103, 'k': 107, 'o': 111, 's': 115, 'w': 119,
+	'{': 123, '\n': 10, '"': 34, '&': 38, '*': 42, '.': 46, '2': 50, '6': 54,
+	':': 58, '>': 62, 'B': 66, 'F': 70, 'J': 74, 'N': 78, 'R': 82, 'V': 86,
+	'Z': 90, '^': 94, 'b': 98, 'f': 102, 'j': 106, 'n': 110, 'r': 114,
+	'v': 118, 'z': 122, '~': 126, '\t': 9, '!': 33, '%': 37, ')': 41,
+	'-': 45, '1': 49, '5': 53, '9': 57, '=': 61, 'A': 65, 'E': 69, 'I': 73,
+	'M': 77, 'Q': 81, 'U': 85, 'Y': 89, ']': 93, 'a': 97, 'e': 101, 'i': 105,
+	'm': 109, 'q': 113, 'u': 117, 'y': 121, '}': 125
+};
+
+function ord(c) {
+	if (ordLookup[c]) {
+		return ordLookup[c];
+	} else {
+		throw new Error("ord: invalid code");
+	}
+}
+
+function isord(c) {
+	return (!! ordLookup[c]);
+}
+
+function ispord(c) {
+	return (isord(c) && ispchr(ord(c)));
+}
+
+var state = {cmd:'',cmdHistory:[],cmdCursor:null};
+
+function makespan(c) {
+	var cElt = document.createElement("span");
+	if (c == ' ') {
+		cElt.innerHTML = '&nbsp;';
+	} else {
+		cElt.innerHTML = c;
+	}
+	return cElt;
+}
+
+function attachKeyHandler() {
+	document.body.onkeydown = function (e) {
+		console.log(e);
+		if (e.keyCode == 13 && state.cmd) {
+			var cmdElt = document.getElementById('cmddiv');
+			var children = cmdElt.children;
+			while (children.length > 0) {
+				cmdElt.removeChild(children[0]);
+			}
+			sayhello(state.cmd,0);
+			state.cmdHistory.push(state.cmd);
+			updateHello(state.cmd);
+			state.cmd = '';
+			state.cmdCursor = null;
+		} else if (e.keyCode == 38) {
+			// compute state.cmdCursor
+			if (state.cmdCursor === null) {
+				state.cmdCursor = state.cmdHistory.length - 1;
+			}
+			// compute state.cmd based on state.cmdCursor and state.cmdHistory
+			if (state.cmdCursor == null) {
+				state.cmdCursor = state.cmdHistory.length - 1;
+			} else if (state.cmdCursor > 0) {
+				state.cmdCursor -= 1;
+			}
+			state.cmd = state.cmdHistory[state.cmdCursor];
+			// clear cmdElt children
+			var cmdElt = document.getElementById('cmddiv');
+			var children = cmdElt.children;
+			while (children.length > 0) {
+				cmdElt.removeChild(children[0]);
+			}
+			// append character spans to cmdElt
+			var i;
+			for (i = 0; state.cmd.length > i; i += 1) {
+				cmdElt.appendChild(makespan(state.cmd[i]));
+			}
+		} else if (e.keyCode == 8 && state.cmd) {
+			state.cmd = state.cmd.substring(0,state.cmd.length - 1);
+			var cmdElt = document.getElementById('cmddiv');
+			cmdElt.removeChild(cmdElt.children[cmdElt.children.length - 1]);
+		} else if (e.key == ' ' || ispord(e.key)) {
+			var cmdElt = document.getElementById('cmddiv');
+			cmdElt.appendChild(makespan(e.key));
+			state.cmd = state.cmd + e.key;
+		}
+	};
 }
 
 function getHandle() {
@@ -16,17 +153,6 @@ function getHandle() {
     var elt = document.getElementById('handleInput2');
     elt.value = handleString;
 }
-
-function updateHello(hellomsg) {
-    var helloElt = document.createElement("div");
-    helloElt.innerHTML = hellomsg.content;
-    document.getElementById('hellodiv').appendChild(helloElt);
-}
-var host = window.document.location.host.replace(/:.*/, '');
-var ws = new WebSocket('ws://' + host + ':3010');
-ws.onmessage = function (event) {
-    updateHello(JSON.parse(event.data));
-};
 
 function sayhello(content, broadcast) {
     if (ws.readyState != WebSocket.OPEN) {
@@ -46,7 +172,6 @@ function sayhello(content, broadcast) {
         broadcast: broadcast
     };
     ws.send(JSON.stringify(data));
-    console.log("sent hello message to server");
 }
 
         </script>
@@ -55,7 +180,7 @@ function sayhello(content, broadcast) {
         <meta name="author" content="Sync Music Video">
         <link rel="stylesheet" type="text/css" href="/css/media.css" />
     </head>
-    <body><h1 id="Header">Websockets hello world</h1>
+    <body onload="attachKeyHandler()"><h1 id="Header">Websockets hello world</h1>
 
     <div class="Content">
         {{{body}}}
