@@ -15,13 +15,58 @@ function updateHello(hellomsg) {
 var host = window.document.location.host.replace(/:.*/, '');
 var ws = new WebSocket('ws://' + host + ':3010');
 ws.onmessage = function (event) {
-    updateHello(JSON.parse(event.data).content);
+	var msg = JSON.parse(event.data).content;
+	if (msg.substring(0,"new opentime".length) == "new opentime") {
+		// new opentime HANDLE TAG TIME
+		// TIME format is Date.now()
+		var args = msg.substring("new opentime ".length,msg.length);
+		var argArray = args.split(" ");
+		setCookie("opentime",argArray[2],14);
+	}
+    updateHello(msg);
 };
 
-
+// HUMAN: enter your handle into the HTML element handleInput and press the
+//        setHandle() button to set your handle
 function setHandle() {
     var handleString = document.getElementById('handleInput').value;
     setCookie("handle",handleString,365);
+}
+
+function getHandle() {
+    var handleString = getCookie("handle");
+    var elt = document.getElementById('handleInput');
+    elt.value = handleString;
+}
+
+// HUMAN: enter your tag into the HTML element tagInput and press the setTag()
+//        button to set your file tag
+function setTag() {
+	var tagString = document.getElementById('tagInput').value;
+	setCookie("tag",tagString,14);
+}
+
+function getTag() {
+	var tagString = getCookie("tag");
+	var elt = document.getElementById('tagInput');
+	elt.value = tagString;
+}
+
+// HUMAN: set your handle, set your tag, and press newOpentime() to open a new
+// file with the given tag
+function newOpentime() {
+	sayhello("new opentime " + getCookie("handle") + " " + getCookie("tag"));
+}
+
+function setOpentime() {
+	var opentimeString = document.getElementById('opentimeInput').value;
+	setCookie("opentime",opentimeString,14);
+}
+
+function getOpentime() {
+	var opentimeString = getCookie("opentime");
+	var elt = document.getElementById('opentimeInput');
+	elt.value = opentimeString;
 }
 
 var chrLookup = [
@@ -99,9 +144,14 @@ function makespan(c) {
 	return cElt;
 }
 
-function attachKeyHandler() {
+function pageLoaded() {
+	getHandle();
+	getTag();
+	getOpentime();
 	document.body.onkeydown = function (e) {
-		console.log(e);
+		if (e.srcElement !== document.body) {
+			return;
+		}
 		if (e.keyCode == 13 && state.cmd) {
 			var cmdElt = document.getElementById('cmddiv');
 			var children = cmdElt.children;
@@ -148,12 +198,6 @@ function attachKeyHandler() {
 	};
 }
 
-function getHandle() {
-    var handleString = getCookie("handle");
-    var elt = document.getElementById('handleInput2');
-    elt.value = handleString;
-}
-
 function sayhello(content, broadcast) {
     if (ws.readyState != WebSocket.OPEN) {
         console.log("websocket is closed");
@@ -180,7 +224,7 @@ function sayhello(content, broadcast) {
         <meta name="author" content="Sync Music Video">
         <link rel="stylesheet" type="text/css" href="/css/media.css" />
     </head>
-    <body onload="attachKeyHandler()"><h1 id="Header">Websockets hello world</h1>
+    <body onload="pageLoaded()"><h1 id="Header">Websockets hello world</h1>
 
     <div class="Content">
         {{{body}}}

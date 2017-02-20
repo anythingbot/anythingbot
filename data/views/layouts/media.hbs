@@ -17,7 +17,8 @@ function updateVideo(videomsg) {
 var host = window.document.location.host.replace(/:.*/,'');
 var ws = new WebSocket('ws://' + host + ':3003');
 ws.onmessage = function (event) {
-	updateVideo(JSON.parse(event.data));
+	// updateVideo(JSON.parse(event.data));
+	;
 };
 
 function sendmsg(content) {
@@ -32,7 +33,6 @@ function sendmsg(content) {
 		content: content
 	};
 	ws.send(JSON.stringify(data));
-	console.log("sent video message to server");
 }
 
 function sendpulse() {
@@ -43,9 +43,10 @@ function sendpulse() {
 
 var pulse = 0;
 function pageLoaded() {
-	console.log("page loaded");
 	console.log("handle = " + getCookie("handle"));
 	pulse = setInterval(sendpulse,5000);
+	setTimeout(function () { location.reload(); },
+					{{data.secondsRemaining}} * 1000);
 }
 
 var state = {

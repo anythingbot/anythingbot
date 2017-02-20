@@ -1,6 +1,22 @@
 Number of web sockets: {{data.nws}}
-<div>Please use [a-zA-Z0-9_] only for handle characters</div>
-<div><button onclick="setHandle()">setHandle()</button><input id="handleInput"></input></div>
-<div><button onclick="getHandle()">getHandle()</button><input id="handleInput2"></input></div>
+<div>Please use [a-zA-Z][a-zA-Z0-9]* only for handle and tag characters</div>
+<div>
+	<button onclick="setHandle()">setHandle()</button>
+	<input id="handleInput"></input>
+</div>
+<div>
+	<button onclick="setTag()">setTag()</button>
+	<input id="tagInput"></input>
+</div>
+<div>
+	<button onclick="newOpentime()">newOpentime()</button>
+	<button onclick="getOpentime()">getOpentime()</button>
+	<button onclick="setOpentime()">setOpentime()</button>
+	<input id="opentimeInput"></input>
+</div>
+<div>
+	<input id="dateInput"></input>
+	<button onclick="listOpentimes()">listOpentimes()</button>
+</div>
 <div id="hellodiv"></div>
 <div id="cmddiv"></div>

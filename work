@@ -1,0 +1,192 @@
+-1. /uptime with a reset button,
+	@HANDLE is set by the cookies
+	-1.a emit a log message
+	     "@{{getCookie("handle")}} requested reset at {{Date.now()}}"
+	on reboot, search the logs in reverse chronological order for the last
+	"? requested reset" message
+
+0. handle and opentime
+   valid handle must match /[a-zA-Z][a-zA-Z0-9]*/
+   handle is set in cookies
+   handle must have length at least 2 characters
+   opentime is a positive integer, a Date.now()
+   opentime is set in cookies
+
+1. text files, virtual files, and file editor
+   file operations: open, write, close
+   1.a the anythingbot text file format
+       1.a.0 tag must match /[a-zA-Z][a-zA-Z0-9]*/
+	         tag is set in cookies
+       1.a.1 valid characters are among ASCII 9, 10, 32, 33,..., 125, 126
+	   1.a.2 maximum file tag length is 80 characters
+	   1.a.3 maximum file length is 100,000 characters
+	   1.a.4 maximum line length is 10,000 characters
+	   1.a.5 no maximum number of lines (each char may be a newline)
+   1.b open a text file
+	   user goes to /open where there is an input element and an "Open" button,
+	   enters a tag, and clicks the "Open" button. This opens a new empty file
+	   tag.TIME, sets the "tag" cookie to the tag in the input, and sets the
+	   "opentime" cookie to the open time of the new file
+	   1.b.1 in order to create a text file, is is not required that the user
+	         set a handle in the cookies
+	   1.b.2 there is no rate limit for file contents or number of file
+	         operations
+   1.c read and write to text file using the editor
+	   the bot creates a buffer (data is held in bot memory)
+	   the bot loads file data into the buffer from file system
+	   1.c.1 the user can edit the file using /editor
+			 the /editor contains text input for a handle, text input for file
+			 open time, a "Load" button, a "Save" button, and a text area
+	   1.c.2 to load a file into the editor, the user enters a tag and time and
+			 clicks the "Load" button. This causes the bot to create a buffer
+			 and load the contents of the file into the buffer and serve the
+			 buffer to the web client
+	   1.c.3 The user can write a file with the current buffer contents and
+			 current tag by clicking the "Save" button. This writes out the
+			 complete contents of the buffer to a new file with the given tag
+			 at the current time, consisting of two file operations: open,
+			 write. After a save, the file is not closed. In order to close a
+			 file, the user must go to /close and enter the file tag into the
+			 file tag input, the file open time into the open time input (both
+			 file tag and file open time are set in cookies, and these will be
+			 automatically populated when a user saves a file) and clicks the
+			 "Close" button. This will close the file tag.TIME.
+	   1.c.4 The buffer is line-based, and it is possible to load a virtual
+             file into a buffer, edit it, and save the contents to a file
+   1.d close a text file
+	   closing a text file causes it to be renamed from tag.TIME to
+	   tag.time#HASH where HASH is the SHA-1 hash of the file contents
+   1.e copy a text file to AWS
+   1.f file path is anythingbot/text/YYYY-MM-DD/tag.TIME
+       TIME is Date.now()
+   1.g virtual files
+	   A virtual file consists of a sequence of (tag.time,line number) pairs
+	   the line number is zero-based and tag.time may refer to a file that is
+	   open or closed. The line number must be less than the number of lines in
+	   the file.
+
+2. audio and video codecs
+   define audio and video codecs, measure their properties
+   how well does a codec perform in terms of compression?
+   does the codec appeal to a specific range of psychological effects?
+   can the codec be used in personality development?
+   can the codec be used as a component of a teaching program?
+   can the codec be used to prove theorems of ZF and ZFC set theory?
+   2.a define, in naive set theory, an audio and video (RGB) signal
+	   as follows: a **mono audio signal** of duration t for t a positive
+	   real is a continuous map of bounded variation from the real interval
+	   [0,t] to [-1,1]. A **stereo audio signal** of duration t consists of
+	   a pair (left, right) of mono audio signals of duration t. A **video
+	   component signal** of duration t is a continuous map of bounded
+	   variation from the real interval [0,t] to [0,1]. An **RGB video
+	   signal** of duration t is a triple (red,green,blue) of component
+	   signals.
+
+3. VIM online
+   3.a add VIM functionality to /hello
+   3.b connect /hello VIM to text files
+
+4. pick-and-plan
+   This is a tool designed to create lesson plans and activities that are
+   delivered by a single codec (coder/decoder). The students interact with the
+   bot using the language of the codec. This is done using audio and video
+   output channels and mouse and keyboard input channels. Each codec is
+   described in terms of naive set theory.
+
+   Although it is possible to design very complex audio and video (A/V) signal
+   formats that contain information delivered at high speed, these formats, by
+   their intrinsic nature, may be an obstacle to learning. In fact, learning
+   depends on focus and attention. Interacting with the bot using a codec that
+   lacks dynamic range of focus by offering too many alternatives and modes of
+   expression will tend to encourage the degenerate forms of learning offered
+   by traditional codecs: video games and pornography.
+
+   Pick-and-plan is a reaction to the groups, controlled by industry and trade
+   associations, that design codecs that encourage kids to learn degenerate
+   activity. Although traditional codecs were designed in public using the
+   input of the best and brightest engineers, they did not understand how
+   powerful they would become in the lives of all people, child and adult
+   alike. Pick-and-plan starts from the premise that the codecs in widespread
+   use today encourage degenerate behavior because they were designed to
+   transmit degenerate content. We takes these historical considerations to be
+   primary, and other considerations such as evaluation and measurement of
+   codecs is considered to be a technical matter. Who developed a codec is
+   important, why they developed it, when they developed it, what purpose it
+   was developed for, and how it was tested, configured, and deployed are all
+   releveant information. The use of codecs for learning and the record keeping
+   and production of digest material for review is a primary concern for the
+   bot. The bot will, ultimately, be evaluated on the basis of responsibly
+   executing these tasks. It is not the role of the bot to judge the progress
+   of students, but rather to collect the facts and data students may use to
+   judge both their own progress and the progress of their peers.
+
+   In general, the bot assumes that all proof is social proof and all learning
+   is social learning. Therefore, even when a single user is interacting with
+   the bot, it will be in terms of the social networks, both real and virtual,
+   consisting of both real flesh-and-blood students and artificial bot students.
+
+   Students, given a compelling and immersive game world, will be inclined to
+   view characters that interact using motion as rivals. These rivals are the
+   primary object of focus and attention during learning episodes. The students
+   will measure their own performance against the performance of the bot. From
+   the outset, the teacher instructs the class to investigate some phenomena.
+   It is the intent that the students will be able---at the very least---to
+   agree as to what are opinions and what are facts when it comes to the object
+   of study. Forming a hypothesis---the proverbial eureka moment---means the
+   student is building a mental model of the phenomena; a student may "see"
+   what is happening and announce the ability to see something new that was
+   hidden before. This is a conscious, visual process that can be communicated
+   to the other students using the language the teacher used to introduce the
+   class to the phenomena.
+
+   By designing powerful bots that can beat human students along a wide variety
+   of performance tasks and then decreasing the power of these bots to the
+   point where students consider them to be worthy rivals, it is possible to
+   encourage sensitization to and discernment of the phenomena the teacher
+   intends the student to study. Of course students may become distracted by
+   other phenomena during the course of the program of study. It is the role of
+   the codec to filter out this phenomena and focus the attention of the class
+   on the phenomena the teacher intends the class to study.
+
+   From the point of view of a given codec, phenomena may be arrange in a
+   hierarchical structure. For example physical phenomena may be divided into
+   phenomena of motion, electromagmetism, nuclear physics, and so on. These
+   divisions may be made so that each subdivision of the range of phenomena
+   corresponds to a codec itself. The teacher may employ one of these codecs
+   temporarily in order to send a signal to a student or the whole class or to
+   illustrate a particular view of the phenomena.
+
+   When studying phenomena, mental models using language to discuss the
+   presense or absence of phenomena and visual identification, either of real
+   visual sense data or artifically manufactured sense data, of a candidate
+   model of the phenomena, are exchanged verbally between students. A student
+   may do any of these in a social setting with other students:
+    - form a hypothesis
+	- get feedback from other students
+	- test the hypotheses in a way that all of the other students can observe
+	- send a signal to another student
+	  "yes, I think you get it"
+	  "no, I don't think you get it, let me explain ..."
+	- explain a view of some aspect of the phenomena to another student
+
+   Students learn to discuss the phenomena in a social setting with other
+   students. A student remembers
+	- direct sense contact of the phenomena
+	- reactions of the class and teacher
+	- what the class considers true of the phenomena (social proof)
+	- how the class decides what is true of the phenomena (social learning)
+   The students will discuss the phenomena with those students who are
+   considered by other students in the class to be the authorities on the
+   phenomena. The students understand that for every given phenomena, there is
+   a social network within the social network of students that is organized to
+   take responsibility for measuring the phenomena on an ongoing basis. This
+   social network determines who is an authority on the phenomena and how the
+   authority comes to judge whether a given condition is true of the phenomena
+   or not. In this way, logic enters into the learning process as a way of
+   discussing the results of investigation: the student should come away with a
+   mental model of the phenomena and a description or intuitive idea (depending
+   on the nature of the phenomena) of the language used to express conditions.
+
+   A **frame** is defined to be a subset of the unit square [0,1] x [0,1]. A
+   **sample** is defined to be a real number in the interval [-1,1]. An audio
+   signal of duration t for t a positive real number is a map from 
