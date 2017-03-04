@@ -15,14 +15,14 @@ function updateHello(hellomsg) {
 var host = window.document.location.host.replace(/:.*/, '');
 var ws = new WebSocket('ws://' + host + ':3010');
 ws.onmessage = function (event) {
-	var msg = JSON.parse(event.data).content;
-	if (msg.substring(0,"new opentime".length) == "new opentime") {
-		// new opentime HANDLE TAG TIME
-		// TIME format is Date.now()
-		var args = msg.substring("new opentime ".length,msg.length);
-		var argArray = args.split(" ");
-		setCookie("opentime",argArray[2],14);
-	}
+    var msg = JSON.parse(event.data).content;
+    if (msg.substring(0,"new opentime".length) == "new opentime") {
+        // new opentime HANDLE TAG TIME
+        // TIME format is Date.now()
+        var args = msg.substring("new opentime ".length,msg.length);
+        var argArray = args.split(" ");
+        setCookie("opentime",argArray[2],14);
+    }
     updateHello(msg);
 };
 
@@ -42,163 +42,272 @@ function getHandle() {
 // HUMAN: enter your tag into the HTML element tagInput and press the setTag()
 //        button to set your file tag
 function setTag() {
-	var tagString = document.getElementById('tagInput').value;
-	setCookie("tag",tagString,14);
+    var tagString = document.getElementById('tagInput').value;
+    setCookie("tag",tagString,14);
 }
 
 function getTag() {
-	var tagString = getCookie("tag");
-	var elt = document.getElementById('tagInput');
-	elt.value = tagString;
+    var tagString = getCookie("tag");
+    var elt = document.getElementById('tagInput');
+    elt.value = tagString;
 }
 
 // HUMAN: set your handle, set your tag, and press newOpentime() to open a new
 // file with the given tag
 function newOpentime() {
-	sayhello("new opentime " + getCookie("handle") + " " + getCookie("tag"));
+    sayhello("new opentime " + getCookie("handle") + " " + getCookie("tag"));
 }
 
 function setOpentime() {
-	var opentimeString = document.getElementById('opentimeInput').value;
-	setCookie("opentime",opentimeString,14);
+    var opentimeString = document.getElementById('opentimeInput').value;
+    setCookie("opentime",opentimeString,14);
 }
 
 function getOpentime() {
-	var opentimeString = getCookie("opentime");
-	var elt = document.getElementById('opentimeInput');
-	elt.value = opentimeString;
+    var opentimeString = getCookie("opentime");
+    var elt = document.getElementById('opentimeInput');
+    elt.value = opentimeString;
 }
 
 var chrLookup = [
-	'', '', '', '', '', '', '', '', '', '\t', '\n', '', '', '', '', '',
-	'', '', '', '', '', '', '', '', '',   '',   '', '', '', '', '', '',
-	' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.',
-	'/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
-	'>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-	'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[',
-	'\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-	'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
-	'z', '{', '|', '}', '~'];
+    '', '', '', '', '', '', '', '', '', '\t', '\n', '', '', '', '', '',
+    '', '', '', '', '', '', '', '', '',   '',   '', '', '', '', '', '',
+    ' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.',
+    '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=',
+    '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[',
+    '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+    'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+    'z', '{', '|', '}', '~'];
 
 function chr(n) {
-	if (n == 9 || n == 10 || (n >= 32 && n <= 126)) {
-		return chrLookup[n];
-	} else {
-		throw new Error("chr: invalid character");
-	}
+    if (n == 9 || n == 10 || (n >= 32 && n <= 126)) {
+        return chrLookup[n];
+    } else {
+        throw new Error("chr: invalid character");
+    }
 }
 
 function ispchr(n) {
-	return (n >= 33 && n <= 126);
+    return (n >= 33 && n <= 126);
 }
 
 function pchr(n) {
-	if (n >= 33 && n <= 126) {
-		return chrLookup[n];
-	} else {
-		throw new Error("pchr: invalid character");
-	}
+    if (n >= 33 && n <= 126) {
+        return chrLookup[n];
+    } else {
+        throw new Error("pchr: invalid character");
+    }
 }
 
 var ordLookup = {
-	' ': 32, '$': 36, '(': 40, ',': 44, '0': 48, '4': 52, '8': 56, '<': 60,
-	'@': 64, 'D': 68, 'H': 72, 'L': 76, 'P': 80, 'T': 84, 'X': 88, '\\': 92,
-	'`': 96, 'd': 100, 'h': 104, 'l': 108, 'p': 112, 't': 116, 'x': 120,
-	'|': 124, '#': 35, "'": 39, '+': 43, '/': 47, '3': 51, '7': 55, ';': 59,
-	'?': 63, 'C': 67, 'G': 71, 'K': 75, 'O': 79, 'S': 83, 'W': 87, '[': 91,
-	'_': 95, 'c': 99, 'g': 103, 'k': 107, 'o': 111, 's': 115, 'w': 119,
-	'{': 123, '\n': 10, '"': 34, '&': 38, '*': 42, '.': 46, '2': 50, '6': 54,
-	':': 58, '>': 62, 'B': 66, 'F': 70, 'J': 74, 'N': 78, 'R': 82, 'V': 86,
-	'Z': 90, '^': 94, 'b': 98, 'f': 102, 'j': 106, 'n': 110, 'r': 114,
-	'v': 118, 'z': 122, '~': 126, '\t': 9, '!': 33, '%': 37, ')': 41,
-	'-': 45, '1': 49, '5': 53, '9': 57, '=': 61, 'A': 65, 'E': 69, 'I': 73,
-	'M': 77, 'Q': 81, 'U': 85, 'Y': 89, ']': 93, 'a': 97, 'e': 101, 'i': 105,
-	'm': 109, 'q': 113, 'u': 117, 'y': 121, '}': 125
+    ' ': 32, '$': 36, '(': 40, ',': 44, '0': 48, '4': 52, '8': 56, '<': 60,
+    '@': 64, 'D': 68, 'H': 72, 'L': 76, 'P': 80, 'T': 84, 'X': 88, '\\': 92,
+    '`': 96, 'd': 100, 'h': 104, 'l': 108, 'p': 112, 't': 116, 'x': 120,
+    '|': 124, '#': 35, "'": 39, '+': 43, '/': 47, '3': 51, '7': 55, ';': 59,
+    '?': 63, 'C': 67, 'G': 71, 'K': 75, 'O': 79, 'S': 83, 'W': 87, '[': 91,
+    '_': 95, 'c': 99, 'g': 103, 'k': 107, 'o': 111, 's': 115, 'w': 119,
+    '{': 123, '\n': 10, '"': 34, '&': 38, '*': 42, '.': 46, '2': 50, '6': 54,
+    ':': 58, '>': 62, 'B': 66, 'F': 70, 'J': 74, 'N': 78, 'R': 82, 'V': 86,
+    'Z': 90, '^': 94, 'b': 98, 'f': 102, 'j': 106, 'n': 110, 'r': 114,
+    'v': 118, 'z': 122, '~': 126, '\t': 9, '!': 33, '%': 37, ')': 41,
+    '-': 45, '1': 49, '5': 53, '9': 57, '=': 61, 'A': 65, 'E': 69, 'I': 73,
+    'M': 77, 'Q': 81, 'U': 85, 'Y': 89, ']': 93, 'a': 97, 'e': 101, 'i': 105,
+    'm': 109, 'q': 113, 'u': 117, 'y': 121, '}': 125
 };
 
 function ord(c) {
-	if (ordLookup[c]) {
-		return ordLookup[c];
-	} else {
-		throw new Error("ord: invalid code");
-	}
+    if (ordLookup[c]) {
+        return ordLookup[c];
+    } else {
+        throw new Error("ord: invalid code");
+    }
 }
 
 function isord(c) {
-	return (!! ordLookup[c]);
+    return (!! ordLookup[c]);
 }
 
 function ispord(c) {
-	return (isord(c) && ispchr(ord(c)));
+    return (isord(c) && ispchr(ord(c)));
 }
 
-var state = {cmd:'',cmdHistory:[],cmdCursor:null};
+var state = {cmd:'',cmdHistory:[],cmdCursor:null,ctx:null};
 
 function makespan(c) {
-	var cElt = document.createElement("span");
-	if (c == ' ') {
-		cElt.innerHTML = '&nbsp;';
-	} else {
-		cElt.innerHTML = c;
-	}
-	return cElt;
+    var cElt = document.createElement("span");
+    if (c == ' ') {
+        cElt.innerHTML = '&nbsp;';
+    } else {
+        cElt.innerHTML = c;
+    }
+    return cElt;
+}
+
+function attachHeli() {
+    var ctrls = document.createElement('div');
+    var e = document.createElement('input');
+    e.setAttribute('id','innerRadius');
+    e.setAttribute('value',80);
+    ctrls.appendChild(e);
+    e = document.createElement('input');
+    e.setAttribute('id','outerRadius');
+    e.setAttribute('value',"-60,-20,20,60");
+    ctrls.appendChild(e);
+    e = document.createElement('input');
+    e.setAttribute('id','innerFactor');
+    e.setAttribute('value','1');
+    ctrls.appendChild(e);
+    e = document.createElement('input');
+    e.setAttribute('id','outerFactor');
+    e.setAttribute('value','-1');
+    ctrls.appendChild(e);
+    e = document.createElement('button');
+    e.setAttribute('onclick',"drawheli()");
+    e.innerHTML = "drawheli()";
+    ctrls.appendChild(e);
+    e = document.createElement('button');
+    e.setAttribute('onclick',"clearCanvas()");
+    e.innerHTML = "clearCanvas()";
+    ctrls.appendChild(e);
+    var view = document.createElement('canvas');
+    view.setAttribute('id','hellocanvas');
+    view.setAttribute('width',300);
+    view.setAttribute('height',300);
+    view.setAttribute('style','border:1px solid #000000;');
+    var c = document.getElementById('canvasdiv');
+    c.appendChild(ctrls);
+    c.appendChild(view);
+    initContext();
+    clearCanvas();
 }
 
 function pageLoaded() {
-	getHandle();
-	getTag();
-	getOpentime();
-	document.body.onkeydown = function (e) {
-		if (e.srcElement !== document.body) {
-			return;
-		}
-		if (e.keyCode == 13 && state.cmd) {
-			var cmdElt = document.getElementById('cmddiv');
-			var children = cmdElt.children;
-			while (children.length > 0) {
-				cmdElt.removeChild(children[0]);
-			}
-			sayhello(state.cmd,0);
-			state.cmdHistory.push(state.cmd);
-			updateHello(state.cmd);
-			state.cmd = '';
-			state.cmdCursor = null;
-		} else if (e.keyCode == 38) {
-			// compute state.cmdCursor
-			if (state.cmdCursor === null) {
-				state.cmdCursor = state.cmdHistory.length - 1;
-			}
-			// compute state.cmd based on state.cmdCursor and state.cmdHistory
-			if (state.cmdCursor == null) {
-				state.cmdCursor = state.cmdHistory.length - 1;
-			} else if (state.cmdCursor > 0) {
-				state.cmdCursor -= 1;
-			}
-			state.cmd = state.cmdHistory[state.cmdCursor];
-			// clear cmdElt children
-			var cmdElt = document.getElementById('cmddiv');
-			var children = cmdElt.children;
-			while (children.length > 0) {
-				cmdElt.removeChild(children[0]);
-			}
-			// append character spans to cmdElt
-			var i;
-			for (i = 0; state.cmd.length > i; i += 1) {
-				cmdElt.appendChild(makespan(state.cmd[i]));
-			}
-		} else if (e.keyCode == 8 && state.cmd) {
-			state.cmd = state.cmd.substring(0,state.cmd.length - 1);
-			var cmdElt = document.getElementById('cmddiv');
-			cmdElt.removeChild(cmdElt.children[cmdElt.children.length - 1]);
-		} else if (e.key == ' ' || ispord(e.key)) {
-			var cmdElt = document.getElementById('cmddiv');
-			cmdElt.appendChild(makespan(e.key));
-			state.cmd = state.cmd + e.key;
-		}
-	};
+    getHandle();
+    getTag();
+    getOpentime();
+    document.body.onkeydown = function (e) {
+        if (e.srcElement !== document.body) {
+            return;
+        }
+        if (e.keyCode == 13 && state.cmd) {
+            var cmdElt = document.getElementById('cmddiv');
+            var children = cmdElt.children;
+            while (children.length > 0) {
+                cmdElt.removeChild(children[0]);
+            }
+            sayhello(state.cmd,0);
+            state.cmdHistory.push(state.cmd);
+            updateHello(state.cmd);
+            state.cmd = '';
+            state.cmdCursor = null;
+        } else if (e.keyCode == 38) {
+            // compute state.cmdCursor
+            if (state.cmdCursor === null) {
+                state.cmdCursor = state.cmdHistory.length - 1;
+            }
+            // compute state.cmd based on state.cmdCursor and state.cmdHistory
+            if (state.cmdCursor == null) {
+                state.cmdCursor = state.cmdHistory.length - 1;
+            } else if (state.cmdCursor > 0) {
+                state.cmdCursor -= 1;
+            }
+            state.cmd = state.cmdHistory[state.cmdCursor];
+            // clear cmdElt children
+            var cmdElt = document.getElementById('cmddiv');
+            var children = cmdElt.children;
+            while (children.length > 0) {
+                cmdElt.removeChild(children[0]);
+            }
+            // append character spans to cmdElt
+            var i;
+            for (i = 0; state.cmd.length > i; i += 1) {
+                cmdElt.appendChild(makespan(state.cmd[i]));
+            }
+        } else if (e.keyCode == 8 && state.cmd) {
+            state.cmd = state.cmd.substring(0,state.cmd.length - 1);
+            var cmdElt = document.getElementById('cmddiv');
+            cmdElt.removeChild(cmdElt.children[cmdElt.children.length - 1]);
+        } else if (e.key == ' ' || ispord(e.key)) {
+            var cmdElt = document.getElementById('cmddiv');
+            cmdElt.appendChild(makespan(e.key));
+            state.cmd = state.cmd + e.key;
+        }
+    };
+}
+
+function initContext() {
+    var canvasElt = document.getElementById('hellocanvas');
+    state.ctx = canvasElt.getContext("2d");
+}
+
+function clearCanvas() {
+    var ctx = state.ctx;
+    ctx.clearRect(0,0,600,600);
+}
+
+function incarray(index,limit) {
+    var i;
+    for (i = 0; i < index.length; i += 1) {
+        index[i] += 1;
+        if (index[i] == limit[i]) {
+            index[i] = 0;
+            continue;
+        } else {
+            break;
+        }
+    }
+}
+
+function drawheli() {
+    var innerRadiusA = document.getElementById('innerRadius').value.split(',');
+    var outerRadiusA = document.getElementById('outerRadius').value.split(',');
+    var innerFactorA = document.getElementById('innerFactor').value.split(',');
+    var outerFactorA = document.getElementById('outerFactor').value.split(',');
+    var limit = [innerRadiusA.length, outerRadiusA.length,
+        innerFactorA.length, outerFactorA.length];
+    var index = [0,0,0,0];
+    var ctx = state.ctx;
+    var i;
+    var n = 180;
+    var xOrigin = 150;
+    var yOrigin = 150;
+    while (1) {
+        var innerRadius = innerRadiusA[index[0]];
+        var outerRadius = outerRadiusA[index[1]];
+        var innerFactor = innerFactorA[index[2]];
+        var outerFactor = outerFactorA[index[3]];
+        for (i = 0; i < n; i += 1) {
+            var innerRadians = innerFactor * 2 * Math.PI * (i / n);
+            var outerRadians = outerFactor * 2 * Math.PI * (i / n);
+            var x1 = xOrigin + innerRadius * Math.sin(innerRadians) +
+                               outerRadius * Math.sin(outerRadians);
+            var y1 = yOrigin + innerRadius * Math.cos(innerRadians) +
+                               outerRadius * Math.cos(outerRadians);
+            innerRadians = innerFactor * 2 * Math.PI * ((i+1) / n);
+            outerRadians = outerFactor * 2 * Math.PI * ((i+1) / n);
+            var x2 = xOrigin + innerRadius * Math.sin(innerRadians) +
+                               outerRadius * Math.sin(outerRadians);
+            var y2 = yOrigin + innerRadius * Math.cos(innerRadians) +
+                               outerRadius * Math.cos(outerRadians);
+            ctx.beginPath();
+            ctx.moveTo(x1,y1);
+            ctx.lineTo(x2,y2);
+            ctx.stroke();
+        }
+        incarray(index,limit);
+        if (index[0] == 0 && index[1] == 0 && index[2] == 0 &&
+                             index[3] == 0) {
+            break;
+        }
+    }
 }
 
 function sayhello(content, broadcast) {
+    if (content == "heli") {
+        attachHeli();
+        return;
+    }
     if (ws.readyState != WebSocket.OPEN) {
         console.log("websocket is closed");
         return;
