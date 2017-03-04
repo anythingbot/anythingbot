@@ -147,20 +147,8 @@ function makespan(c) {
 function attachHeli() {
     var ctrls = document.createElement('div');
     var e = document.createElement('input');
-    e.setAttribute('id','innerRadius');
-    e.setAttribute('value',80);
-    ctrls.appendChild(e);
-    e = document.createElement('input');
-    e.setAttribute('id','outerRadius');
-    e.setAttribute('value',"-60,-20,20,60");
-    ctrls.appendChild(e);
-    e = document.createElement('input');
-    e.setAttribute('id','innerFactor');
-    e.setAttribute('value','1');
-    ctrls.appendChild(e);
-    e = document.createElement('input');
-    e.setAttribute('id','outerFactor');
-    e.setAttribute('value','-1');
+    e.setAttribute('id','heliParams');
+    e.setAttribute('value',"50;-55,55,-50,50;1;-1[70]+0;10,30,70;1;1");
     ctrls.appendChild(e);
     e = document.createElement('button');
     e.setAttribute('onclick',"drawheli()");
@@ -259,11 +247,14 @@ function incarray(index,limit) {
     }
 }
 
-function drawheli() {
-    var innerRadiusA = document.getElementById('innerRadius').value.split(',');
-    var outerRadiusA = document.getElementById('outerRadius').value.split(',');
-    var innerFactorA = document.getElementById('innerFactor').value.split(',');
-    var outerFactorA = document.getElementById('outerFactor').value.split(',');
+function drawHeliArray(params, radiuslimit) {
+    if (! params instanceof Array) {
+        return;
+    }
+    var innerRadiusA = params[0].split(',');
+    var outerRadiusA = params[1].split(',');
+    var innerFactorA = params[2].split(',');
+    var outerFactorA = params[3].split(',');
     var limit = [innerRadiusA.length, outerRadiusA.length,
         innerFactorA.length, outerFactorA.length];
     var index = [0,0,0,0];
@@ -280,26 +271,45 @@ function drawheli() {
         for (i = 0; i < n; i += 1) {
             var innerRadians = innerFactor * 2 * Math.PI * (i / n);
             var outerRadians = outerFactor * 2 * Math.PI * (i / n);
-            var x1 = xOrigin + innerRadius * Math.sin(innerRadians) +
-                               outerRadius * Math.sin(outerRadians);
-            var y1 = yOrigin + innerRadius * Math.cos(innerRadians) +
-                               outerRadius * Math.cos(outerRadians);
+            var x1 = innerRadius * Math.sin(innerRadians) +
+                     outerRadius * Math.sin(outerRadians);
+            var y1 = innerRadius * Math.cos(innerRadians) +
+                     outerRadius * Math.cos(outerRadians);
             innerRadians = innerFactor * 2 * Math.PI * ((i+1) / n);
             outerRadians = outerFactor * 2 * Math.PI * ((i+1) / n);
-            var x2 = xOrigin + innerRadius * Math.sin(innerRadians) +
-                               outerRadius * Math.sin(outerRadians);
-            var y2 = yOrigin + innerRadius * Math.cos(innerRadians) +
-                               outerRadius * Math.cos(outerRadians);
-            ctx.beginPath();
-            ctx.moveTo(x1,y1);
-            ctx.lineTo(x2,y2);
-            ctx.stroke();
+            var x2 = innerRadius * Math.sin(innerRadians) +
+                     outerRadius * Math.sin(outerRadians);
+            var y2 = innerRadius * Math.cos(innerRadians) +
+                     outerRadius * Math.cos(outerRadians);
+            if (x1 * x1 + y1 * y1 > radiuslimit * radiuslimit &&
+                    x2 * x2 + y2 * y2 > radiuslimit * radiuslimit) {
+                ctx.beginPath();
+                ctx.moveTo(xOrigin + x1,yOrigin + y1);
+                ctx.lineTo(xOrigin + x2,yOrigin + y2);
+                ctx.stroke();
+            }
         }
         incarray(index,limit);
         if (index[0] == 0 && index[1] == 0 && index[2] == 0 &&
                              index[3] == 0) {
             break;
         }
+    }
+}
+
+function drawheli() {
+    var paramlist = document.getElementById('heliParams').value.split('+');
+    var i;
+    for (i = 0; i < paramlist.length; i += 1) {
+        var radiuslimit = -1;
+        var term = paramlist[i];
+        if (term.indexOf('[') != -1) {
+            radiuslimit = term.slice(term.indexOf('['),term.length);
+            var term = term.slice(0,term.indexOf('['));
+            radiuslimit = radiuslimit.slice(1,radiuslimit.length-1);
+        }
+        var params = term.split(';');
+        drawHeliArray(params, radiuslimit);
     }
 }
 
