@@ -9,15 +9,19 @@
         <script>
 
 
-function updateVideo(videomsg) {
-	var videoElt = document.createElement("div");
-	videoElt.innerHTML = videomsg.content;
-	document.getElementById('videodiv').appendChild(videoElt);
+function updateVideo(content) {
+    if (content.expectedMID != content.actualMID) {
+        location.reload();
+    }
+	// var videoElt = document.createElement("div");
+	// videoElt.innerHTML = JSON.stringify(content);
+	// document.getElementById('videodiv').appendChild(videoElt);
 }
 var host = window.document.location.host.replace(/:.*/,'');
 var ws = new WebSocket('ws://' + host + ':3003');
 ws.onmessage = function (event) {
-	// updateVideo(JSON.parse(event.data));
+    // console.log(event.data);
+	updateVideo(JSON.parse(event.data).content);
 	;
 };
 
@@ -38,7 +42,8 @@ function sendmsg(content) {
 function sendpulse() {
     var now = Date.now();
 	var handle = getCookie("handle");
-	sendmsg("" + now + "," + handle);
+    var mid = document.getElementById('videomid').value;
+	sendmsg({now:now,handle:handle,mid:mid});
 }
 
 var pulse = 0;
