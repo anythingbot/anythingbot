@@ -1,0 +1,59 @@
+<pre>
+Definition. Let *V* be the set of ASCII strings (n-tuples of integers) of chars
+9,10,32,33,...,125,126 of length less than 100,000. A text file on the bot is
+a triple (tag,time,a) where tag is an ASCII string that matches
+[a-zA-Z][a-zA-Z0-9]* of length 2-80, time is a Date.now(), and a <- V.
+
+Let A,B be subsets of V. A *puzzle function* is a map f : A x B -> {0,1} from
+the direct product of A and B to the set of integers {0,1}. The set A is the
+*key set* or *problem set* for f and B is the *solution set* for f.
+
+In other words, a puzzle function is a *binary relation* that is expressed as a
+function. A *puzzle problem* is a pair (f,a) where f : A x B -> {0,1} is a
+puzzle and a <- A is a *problem key*.  Given a <- A, the *solution set* for
+the problem (f,a) is {b <- B : f(a,b) = 1 }.
+
+A *proof* of the puzzle problem (f,a) is an element b <- B of the solution set.
+
+A *complete solution* to the puzzle f is a map s : A -> B such that
+f(a,s(a)) = 1 for all a <- A.
+
+Given any model of computation and any puzzle, it is possible to write down a
+virtual machine architecture and instruction file that checks the solution to a
+puzzle. Given a puzzle f : A x B -> {0,1}, a *solve procedure for f* takes two
+arguments, the key A and the candidate solution B. It must terminate in a
+finite number of steps and solve(a,b) must return the value f(a,b).
+
+Let f be a puzzle and "solve" a solve procedure for f. Suppose that the state
+of the virtual machine can be serialized as a tuple of integers from
+{9,10,32,33,...,125,126} and that for a given a <- A and b <- B, the solve
+procedure solve(a,b) computes an answer in N steps and for each step i < n,
+let z_i be the serialized state of the virtual machine at step i. Define
+the *profile* of (a,b) to be the triple of integers
+
+    (n, max_i |z_i|, sum_i |z_i|).
+
+In order to solve a puzzle problem (f,a), there must be some virtual machine
+architecture and some solve function defined for the puzzle. A user submits a
+candidate solution b by first downloading the code for the solve procedure
+to the web client and running solve(a,b). In the event that solve(a,b) = 1, the
+web client records the profile and uploads it to the server along with b.
+The server now schedules the appropriate resources to verify that b solves
+the problem (f,a). At each step, the evolution of the computation of the
+solution satisfies the following conditions where (p1,p2,p3) is the
+profile triple:
+
+ - the number of steps the virtual machine process has completed is less
+   than or equal to p1
+ - the serialized state of the virtual machine process has length no
+   greater than p2
+ - the sum of the lengths of the serializations of all previous states
+   is less than or equal to p3
+
+These conditions bound the declared resource consumption of the computation
+that verifies solve(a,b) = 1. Note that the user may increase the value of
+any of p1,p2,p3 without impacting these conditions; in other words, for
+any valid estimate, an equal or greater estimate is valid. There is no reason
+to do so since a higher estimate makes the execution of a verification
+computation less attractive from the point of view of the server, and the
+server may delay it for that reason.
