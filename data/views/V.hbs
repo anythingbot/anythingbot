@@ -1,8 +1,9 @@
 <pre>
-Definition. Let *V* be the set of ASCII strings (n-tuples of integers) of chars
-9,10,32,33,...,125,126 of length less than 100,000. A text file on the bot is
-a triple (tag,time,a) where tag is an ASCII string that matches
-[a-zA-Z][a-zA-Z0-9]* of length 2-80, time is a Date.now(), and a <- V.
+Definition. Let *V* be the set of strings of length less than 100,000 that
+consist of printable ASCII characters. Formally, this is the set of n-tuples
+of integers from the set {9,10,32,33,...,125,126} where n <= 100,000. A *text
+file* on the bot is a triple (tag,time,a) where tag is an ASCII string that
+matches [a-zA-Z][a-zA-Z0-9]* of length 2-80, time is a Date.now(), and a <- V.
 
 Let A,B be subsets of V. A *puzzle function* is a map f : A x B -> {0,1} from
 the direct product of A and B to the set of integers {0,1}. The set A is the
@@ -21,8 +22,8 @@ f(a,s(a)) = 1 for all a <- A.
 Given any model of computation and any puzzle, it is possible to write down a
 virtual machine architecture and instruction file that checks the solution to a
 puzzle. Given a puzzle f : A x B -> {0,1}, a *solve procedure for f* takes two
-arguments, the key A and the candidate solution B. It must terminate in a
-finite number of steps and solve(a,b) must return the value f(a,b).
+arguments, the key a <- A and the candidate solution b <- B. It must terminate
+in a finite number of steps and solve(a,b) must return the value f(a,b).
 
 Let f be a puzzle and "solve" a solve procedure for f. Suppose that the state
 of the virtual machine can be serialized as a tuple of integers from
