@@ -411,6 +411,17 @@ function sayhello(content, broadcast) {
         attachHeli();
         return;
     }
+    if (content == "arcata") {
+        updateHello("Covert Electronic Torture Weapon causes auto accident");
+        updateHello("March 2017");
+        updateHello("Arcata, California---a form of compulsion (torture-based");
+        updateHello("control a.k.a. 'soft kill' a.k.a. 'slow kill') over");
+        updateHello("movement of hands and feet was inflicted on targeted");
+        updateHello("individual (TI) and as a reslt caused TI to start driving");
+        updateHello("a car during a panic attack and have a car accident.");
+        updateHello("The insurance company declared the wreck a total loss.");
+        return;
+    }
     if (ws.readyState != WebSocket.OPEN) {
         console.log("websocket is closed");
         return;
