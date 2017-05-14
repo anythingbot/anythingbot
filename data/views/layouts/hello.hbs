@@ -12,6 +12,16 @@ function updateHello(hellomsg) {
     document.getElementById('hellodiv').appendChild(helloElt);
 }
 
+function clearHello() {
+    var elt = document.getElementById('hellodiv');
+    while (1) {
+        if (elt.children.length == 0) {
+            break;
+        }
+        elt.removeChild(elt.children[0]);
+    }
+}
+
 var host = window.document.location.host.replace(/:.*/, '');
 var ws = new WebSocket('ws://' + host + ':3010');
 window.addEventListener('beforeunload',function () { ws.close(); });
@@ -386,7 +396,8 @@ function pageLoaded() {
                e.target === document.body)) {
             return;
         }
-        if (e.keyCode == 16) {
+        if ( (e.keyCode >= 16 && e.keyCode <= 18) ||
+             (e.shiftKey && e.ctrlKey ) ) {
             return;
         }
         // console.log(e);
@@ -524,6 +535,10 @@ function drawheli() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "clear") {
+        clearHello();
+        return;
+    }
     if (content == "heli") {
         attachHeli();
         return;
@@ -541,6 +556,10 @@ function sayhello(content, broadcast) {
     }
     if (content == "zuck") {
         updateHello("I will not live in fear of a bug");
+        return;
+    }
+    if (content == "contraorg") {
+        updateHello("Contradiction Organization");
         return;
     }
     if (ws.readyState != WebSocket.OPEN) {
