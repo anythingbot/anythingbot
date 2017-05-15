@@ -7,18 +7,42 @@
         <script>
 
 function updateHello(hellomsg) {
-    var helloElt = document.createElement("div");
-    helloElt.innerHTML = hellomsg;
-    document.getElementById('hellodiv').appendChild(helloElt);
+    var i;
+    var terminals;
+    if (state.mode == '0000') {
+        terminals = [
+            document.getElementById('l0000'),
+            document.getElementById('r0000')
+        ];
+    } else {
+        terminals = [document.getElementById('hellodiv')];
+    }
+    for (i = 0; i < terminals.length; i += 1) {
+        var helloElt = document.createElement("div");
+        helloElt.innerHTML = hellomsg;
+        if (state.mode == "00") {
+            helloElt.style = "color : red;";
+        }
+        terminals[i].appendChild(helloElt);
+    }
 }
 
 function clearHello() {
-    var elt = document.getElementById('hellodiv');
-    while (1) {
-        if (elt.children.length == 0) {
-            break;
+    state.mode = '';
+    var terminals = [
+        document.getElementById('hellodiv'),
+        document.getElementById('l0000'),
+        document.getElementById('r0000')
+    ];
+    var i;
+    for (i = 0; i < terminals.length; i += 1) {
+        var elt = terminals[i];
+        while (1) {
+            if (elt.children.length == 0) {
+                break;
+            }
+            elt.removeChild(elt.children[0]);
         }
-        elt.removeChild(elt.children[0]);
     }
 }
 
@@ -149,10 +173,13 @@ function ispord(c) {
     return (isord(c) && ispchr(ord(c)));
 }
 
-var state = {cmd:'',cmdHistory:[],cmdCursor:null,ctx:null,shift:false};
+var state = {cmd:'',cmdHistory:[],cmdCursor:null,ctx:null,shift:false,mode:''};
 
 function makespan(c) {
     var cElt = document.createElement("span");
+    if (state.mode == "00") {
+        cElt.style = "color : red;";
+    }
     if (c == ' ') {
         cElt.innerHTML = '&nbsp;';
     } else {
@@ -313,6 +340,19 @@ function getKey(keyCode,shiftKey) {
 var decodeShiftNumberArray = [')','!','@','#','$','%','^','&','*','('];
 
 var keyActions0 = [
+    function () { virtualKbd('`','~');},
+    function () { virtualKbd('1','!');},
+    function () { virtualKbd('2','@');},
+    function () { virtualKbd('3','#');},
+    function () { virtualKbd('4','$');},
+    function () { virtualKbd('5','%');},
+    function () { virtualKbd('6','^');},
+    function () { virtualKbd('7','&');},
+    function () { virtualKbd('8','*');},
+    function () { virtualKbd('9','(');},
+    function () { virtualKbd('0',')');},
+    function () { virtualKbd('-','_');},
+    function () { virtualKbd('=','+');},
     function () { virtualBackspace();},
 ];
 
@@ -363,6 +403,7 @@ var keyActions3 = [
 ];
 
 function pageLoaded() {
+    document.body.style.fontFamily = "courier";
     getHandle();
     getTag();
     getOpentime();
@@ -535,6 +576,16 @@ function drawheli() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "00") {
+        clearHello();
+        state.mode = '00';
+        return;
+    }
+    if (content == "0000") {
+        clearHello();
+        state.mode = '0000';
+        return;
+    }
     if (content == "clear") {
         clearHello();
         return;
