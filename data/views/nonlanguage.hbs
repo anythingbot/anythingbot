@@ -19,13 +19,15 @@
         return Math.sin(sampleNumber / (sampleFreq / (Math.PI*2)))
     }
 
-    var arr = [], volume = 0.2, seconds = 0.5, tone = 441
+    var arr = [], volume = 0.2, seconds = 0.5, tone = 441;
 
     for (var i = 0; i < context.sampleRate * seconds; i++) {
         arr[i] = sineWaveAt(i, tone) * volume
     }
 
-    playSound(arr)
+    // playSound(arr);
+    setInterval(function () { playSound(arr); }, 3000);
+
 </script>
 
 <pre>

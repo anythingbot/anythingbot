@@ -11,11 +11,11 @@ function updateHello(hellomsg) {
     var terminals;
     if (state.mode == '0000') {
         terminals = [
-            document.getElementById('l0000'),
-            document.getElementById('r0000')
+            [document.getElementById('l0000'),null],
+            [document.getElementById('r0000'),"color : red"]
         ];
     } else {
-        terminals = [document.getElementById('hellodiv')];
+        terminals = [[document.getElementById('hellodiv'),null]];
     }
     for (i = 0; i < terminals.length; i += 1) {
         var helloElt = document.createElement("div");
@@ -23,7 +23,11 @@ function updateHello(hellomsg) {
         if (state.mode == "00") {
             helloElt.style = "color : red;";
         }
-        terminals[i].appendChild(helloElt);
+        // add style
+        if (terminals[i][1]) {
+            helloElt.style = terminals[i][1];
+        }
+        terminals[i][0].appendChild(helloElt);
     }
 }
 
