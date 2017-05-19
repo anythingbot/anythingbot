@@ -15,16 +15,48 @@
     var curveDial = 0;
     var ffCount = 0;
     var syncCount = 0;
+    var beatsPerMinute = 140;
+    var sin2State = [1,0];
+    var noteDial = [1,1,1,1];
 
-    function sineWaveAt(sampleNumber, tone) {
-        var sampleFreq = context.sampleRate / tone
-        return Math.sin(sampleNumber / (sampleFreq / (Math.PI*2)))
+    function selectNote(dialNumber,tone1) {
+        noteDial[dialNumber - 1] = tone1;
+    }
+
+    function sineWaveAt(sampleNumber, tone1, toneseq) {
+        var sampleFreq = context.sampleRate / (tone1 * toneseq);
+        return Math.sin(sampleNumber / (sampleFreq / (Math.PI*2)));
     };
+
+    function sineWaveAt2(tone1, toneseq) {
+        var sampleFreq = context.sampleRate / (tone1 * toneseq);
+        var sin2MulRadians = 1 / (sampleFreq / (Math.PI*2));
+        var sin2Mul = [Math.cos(sin2MulRadians),Math.sin(sin2MulRadians)];
+        sin2State = [sin2State[0] * sin2Mul[0] - sin2State[1] * sin2Mul[1],
+            sin2State[0] * sin2Mul[1] + sin2State[1] * sin2Mul[0]];
+        return sin2State[1];
+    }
 
     function refreshArr() {
         var i;
         for (i = 0; i < context.sampleRate * seconds; i++) {
-            var osc = sineWaveAt(que * context.sampleRate + i, tone * pitchDial);
+            var sampleIndex = que * context.sampleRate + i;
+            var secondsIndex = sampleIndex / context.sampleRate;
+            var minuteIndex = secondsIndex / 60;
+            var beatIndex = minuteIndex * beatsPerMinute;
+            var beatFrac = beatIndex - Math.trunc(beatIndex);
+            var toneSeq = 1;
+            if (beatFrac * 4 < 1) {
+                toneSeq = noteDial[0];
+            } else if (beatFrac * 4 < 2) {
+                toneSeq = noteDial[1];
+            } else if (beatFrac * 4 < 3) {
+                toneSeq = noteDial[2];
+            } else {
+                toneSeq = noteDial[3];
+            }
+            var osc = sineWaveAt2(tone * pitchDial, toneSeq);
+            //var osc = sineWaveAt(que * context.sampleRate + i, tone * pitchDial, toneSeq);
             if (curveDial == 0) {
                 ;
             } else if (curveDial == 2) {
@@ -64,11 +96,11 @@
     };
     function formatTime(x) {
         var frac = x - Math.trunc(x);
-        if (x < 0) {
-            x = 0;
+        if (frac < 0) {
+            frac = 0;
         }
-        if (x > 1) {
-            x = 1;
+        if (frac > 1) {
+            frac = 1;
         }
         var after = "" + Math.trunc(frac * 1000);
         if (after.length >= 4) {
@@ -215,4 +247,32 @@
   <button onclick="selectCurveDial(6)">6</button>
   <button onclick="selectCurveDial(8)">8</button>
   <button onclick="selectCurveDial(10)">10</button>
+</div>
+<div id="row4">
+  <button onClick="selectNote(1,1)">C</button>
+  <button onClick="selectNote(1,1.1)">D</button>
+  <button onClick="selectNote(1,1.2)">E</button>
+  <button onClick="selectNote(1,1.3)">F</button>
+  <button onClick="selectNote(1,1.4)">G</button>
+</div>
+<div id="row5">
+  <button onClick="selectNote(2,1)">C</button>
+  <button onClick="selectNote(2,1.1)">D</button>
+  <button onClick="selectNote(2,1.2)">E</button>
+  <button onClick="selectNote(2,1.3)">F</button>
+  <button onClick="selectNote(2,1.4)">G</button>
+</div>
+<div id="row6">
+  <button onClick="selectNote(3,1)">C</button>
+  <button onClick="selectNote(3,1.1)">D</button>
+  <button onClick="selectNote(3,1.2)">E</button>
+  <button onClick="selectNote(3,1.3)">F</button>
+  <button onClick="selectNote(3,1.4)">G</button>
+</div>
+<div id="row7">
+  <button onClick="selectNote(4,1)">C</button>
+  <button onClick="selectNote(4,1.1)">D</button>
+  <button onClick="selectNote(4,1.2)">E</button>
+  <button onClick="selectNote(4,1.3)">F</button>
+  <button onClick="selectNote(4,1.4)">G</button>
 </div>
