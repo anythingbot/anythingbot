@@ -12,7 +12,8 @@
     var currentBuffer = null;
     var currentSource = null;
     var que = 0;
-    var curveDial = 0;
+    var curveDialConfig = 'A';
+    var curveDialOrder = 0;
     var ffCount = 0;
     var syncCount = 0;
     var beatsPerMinute = 140;
@@ -84,28 +85,70 @@
             }
             var osc = sineWaveAt2(tone * pitchDial, toneSeq);
             //var osc = sineWaveAt(que * context.sampleRate + i, tone * pitchDial, toneSeq);
-            if (curveDial == 0) {
-                ;
-            } else if (curveDial == 2) {
-                osc = (2 * osc) / (osc * osc + 1);
-            } else if (curveDial == 4) {
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-            } else if (curveDial == 6) {
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-            } else if (curveDial == 8) {
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-            } else if (curveDial == 10) {
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
-                osc = (2 * osc) / (osc * osc + 1);
+            if (curveDialConfig == 'A') {
+                if (curveDialOrder == 0) {
+                    ;
+                } else if (curveDialOrder == 2) {
+                    osc = (2 * osc) / (osc * osc + 1);
+                } else if (curveDialOrder == 4) {
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                } else if (curveDialOrder == 6) {
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2 * osc) / (osc * osc + 1);
+                } else if (curveDialOrder == 8) {
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                } else if (curveDialOrder == 10) {
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2 * osc) / (osc * osc + 1);
+                } else if (curveDialOrder == 12) {
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                } else if (curveDialOrder == 14) {
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2 * osc) / (osc * osc + 1);
+                } else if (curveDialOrder == 16) {
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                    osc = (2*osc) / (osc*osc+1); osc = (2*osc) / (osc*osc+1);
+                }
+            } else if (curveDialConfig == 'B') {
+                if (curveDialOrder == 0) {
+                    ;
+                } else if (curveDialOrder == 2) {
+                    osc = (5 * osc) / (osc * osc + 4);
+                } else if (curveDialOrder == 4) {
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                } else if (curveDialOrder == 6) {
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5 * osc) / (osc * osc + 4);
+                } else if (curveDialOrder == 8) {
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                } else if (curveDialOrder == 10) {
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5 * osc) / (osc * osc + 4);
+                } else if (curveDialOrder == 12) {
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                } else if (curveDialOrder == 14) {
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5 * osc) / (osc * osc + 4);
+                } else if (curveDialOrder == 16) {
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                    osc = (5*osc) / (osc*osc+4); osc = (5*osc) / (osc*osc+4);
+                }
             }
             arr[i] = osc * volume * volumeDial;
             //if (i < (context.sampleRate * seconds) / 1000) {
@@ -226,8 +269,9 @@
         pitchDial *= 0.7;
         refreshArr();
     };
-    function selectCurveDial(x) {
-        curveDial = x;
+    function selectCurveDial(config,order) {
+        curveDialConfig = config;
+        curveDialOrder = order;
     }
     function modeDial1() {
         if (accReady) {
@@ -275,14 +319,29 @@
   <button onclick="volumeDialDown()">down</button>
   <button onclick="pitchDialLow()">low</button>
 </div>
-<div id="row3">
+<div id="rowCurve1">
   curve &nbsp;
-  <button onclick="selectCurveDial(0)">0</button>
-  <button onclick="selectCurveDial(2)">2</button>
-  <button onclick="selectCurveDial(4)">4</button>
-  <button onclick="selectCurveDial(6)">6</button>
-  <button onclick="selectCurveDial(8)">8</button>
-  <button onclick="selectCurveDial(10)">10</button>
+  <button onclick="selectCurveDial('A',0)">A0</button>
+  <button onclick="selectCurveDial('A',2)">A2</button>
+  <button onclick="selectCurveDial('A',4)">A4</button>
+  <button onclick="selectCurveDial('A',6)">A6</button>
+  <button onclick="selectCurveDial('A',8)">A8</button>
+  <button onclick="selectCurveDial('A',10)">A10</button>
+  <button onclick="selectCurveDial('A',12)">A12</button>
+  <button onclick="selectCurveDial('A',14)">A14</button>
+  <button onclick="selectCurveDial('A',16)">A16</button>
+</div>
+<div id="rowCurve2">
+  curve &nbsp;
+  <button onclick="selectCurveDial('B',0)" disabled>B0</button>
+  <button onclick="selectCurveDial('B',2)">B2</button>
+  <button onclick="selectCurveDial('B',4)">B4</button>
+  <button onclick="selectCurveDial('B',6)">B6</button>
+  <button onclick="selectCurveDial('B',8)">B8</button>
+  <button onclick="selectCurveDial('B',10)">B10</button>
+  <button onclick="selectCurveDial('B',12)">B12</button>
+  <button onclick="selectCurveDial('B',14)">B14</button>
+  <button onclick="selectCurveDial('B',16)">B16</button>
 </div>
 <div id="row4">
   <button onClick="selectNote(1,1)">C</button>
