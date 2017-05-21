@@ -6,11 +6,8 @@
     var volumeDial = 1.0;
     var pitchDial = 1.0;
     var modeDial = 1;
-    var accReady = 0;
     var acc = [];
     var arr = [], volume = 0.2, seconds = 0.1, tone = 441, limit = 0.8;
-    var currentBuffer = null;
-    var currentSource = null;
     var que = 0;
     var curveDialConfig = 'A';
     var curveDialOrder = 0;
@@ -21,6 +18,14 @@
     var beatIndex = 0;
     var sin2State = [1,0];
     var noteDial = [1,1,1,1];
+    var accReady = 0;
+    var accRecord = 0;
+    var accArmed = 0;
+    var accBeats = 4;
+    var accLength = 0;
+    var accSamplesRemaining = 0;
+    var iAcc = 0; // write head index
+    var jAcc; // read head index
 
     function beatsPerMinuteDial(select) {
         if (select == "+") {
@@ -63,6 +68,7 @@
 
     function refreshArr() {
         var i;
+        var lastBeatIndex = -1;
         for (i = 0; i < context.sampleRate * seconds; i++) {
             var sampleIndex = que * context.sampleRate + i;
             var secondsIndex = sampleIndex / context.sampleRate;
@@ -73,6 +79,13 @@
                 minuteLastBeat = minuteLastBeat + 1.0/beatsPerMinute;
                 beatIndex = beatIndex - 1;
             }
+            // detect beat edge when armed
+            if (accArmed && beatIndex < lastBeatIndex) {
+                accReady = 0;
+                accRecord = 1;
+                accArmed = 0;
+            }
+            lastBeatIndex = beatIndex;
             var toneSeq = 1;
             if (beatIndex * 4 < 1) {
                 toneSeq = noteDial[0];
@@ -151,6 +164,29 @@
                 }
             }
             arr[i] = osc * volume * volumeDial;
+            if (accRecord && accSamplesRemaining > 0) {
+                if (acc.length <= iAcc) {
+                    acc[iAcc] = 0;
+                }
+                acc[iAcc] += arr[i];
+                if (acc[iAcc] >= limit) {
+                    acc[iAcc] = limit;
+                }
+                if (acc[iAcc] <= - limit) {
+                    acc[iAcc] = - limit;
+                }
+                iAcc += 1;
+                accSamplesRemaining -= 1;
+                if (accSamplesRemaining == 0) {
+                    jAcc = 0; // init read head
+                    accReady = 1; // ready for playback? yes
+                    accRecord = 0; // recording? no
+                    accArmed = 0; // armed to record? no
+                    document.getElementById('buttonAcc').disabled = false;
+                    document.getElementById('buttonMode1').disabled = true;
+                    document.getElementById('buttonMode2').disabled = false;
+                }
+            }
             //if (i < (context.sampleRate * seconds) / 1000) {
             //    arr[i] *= i / ( context.sampleRate * seconds / 1000 );
             //}
@@ -185,14 +221,17 @@
         return Math.trunc(x) + "." + after;
     }
     function playSound() {
-        var array;
+        var buf = new Float32Array(1 + Math.trunc(context.sampleRate * seconds));
         if (modeDial == 1) {
-            array = arr;
+            for (var i = 0; i < context.sampleRate * seconds; i++) {
+                buf[i] = arr[i];
+            }
         } else if (modeDial == 2) {
-            array = acc;
+            for (var i = 0; i < context.sampleRate * seconds; i++) {
+                buf[i] = acc[jAcc];
+                jAcc = (jAcc + 1) % accLength;
+            }
         }
-        var buf = new Float32Array(array.length)
-        for (var i = 0; i < array.length; i++) buf[i] = array[i];
         var buffer = context.createBuffer(1, buf.length, context.sampleRate);
         buffer.copyToChannel(buf, 0)
 
@@ -213,44 +252,23 @@
         que = que + seconds;
         document.getElementById("contextSecondsDisplay").innerHTML = formatTime(context.currentTime);
         document.getElementById("queSecondsDisplay").innerHTML = formatTime(que);
-        refreshArr();
-
-        currentBuffer = buffer;
-        currentSource = source;
+        if (modeDial == 1) {
+            refreshArr();
+        }
     };
 
-    function updateSound() {
-        var array;
-        if (modeDial == 1) {
-            array = arr;
-        } else if (modeDial == 2) {
-            array = acc;
-        }
-        var buf = new Float32Array(array.length)
-        for (var i = 0; i < array.length; i++) buf[i] = array[i];
-        var buffer = context.createBuffer(1, buf.length, context.sampleRate);
-        buffer.copyToChannel(buf, 0);
-    }
-
     function updateAcc() {
-        var i;
-        for (i = 0; i < context.sampleRate * seconds; i++) {
-            var x;
-            if (i < acc.length) {
-                x = acc[i];
-            } else {
-                x = 0;
-            }
-            acc[i] = x + arr[i];
-            if (acc[i] >= limit) {
-                acc[i] = limit;
-            } else if (acc[i] <= - limit) {
-                acc[i] = - limit;
-            }
-        }
-        accReady = 1;
-        document.getElementById('buttonMode1').disabled = false;
-        document.getElementById('buttonMode2').disabled = false;
+        var secondsPerBeat = 60.0 / beatsPerMinute;
+        var accSeconds = accBeats * secondsPerBeat;
+        accSamplesRemaining = Math.trunc(context.sampleRate * accSeconds) + 1;
+        iAcc = 0;
+        accLength = Math.trunc(context.sampleRate * accSeconds) + 1;
+        accReady = 0; // ready for playback? no
+        accRecord = 0; // currently recording? no
+        accArmed = 1; // armed to record starting at next beat? yes
+        document.getElementById('buttonAcc').disabled = true;
+        document.getElementById('buttonMode1').disabled = true;
+        document.getElementById('buttonMode2').disabled = true;
     };
     refreshArr();
     function volumeDialUp() {
@@ -274,14 +292,16 @@
         curveDialOrder = order;
     }
     function modeDial1() {
-        if (accReady) {
-            modeDial = 1;
-        }
+        modeDial = 1;
+        document.getElementById('buttonMode1').disabled = true;
+        document.getElementById('buttonMode2').disabled = false;
+        document.getElementById('buttonAcc').disabled = false;
     };
     function modeDial2() {
-        if (accReady) {
-            modeDial = 2;
-        }
+        modeDial = 2;
+        document.getElementById('buttonMode1').disabled = false;
+        document.getElementById('buttonMode2').disabled = true;
+        document.getElementById('buttonAcc').disabled = true;
     };
     // playSound();
     setInterval(function () { playSound(); }, 100);
