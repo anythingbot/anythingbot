@@ -6,6 +6,12 @@
         <script src="/js/lib/cookie.js"></script>
         <script>
 
+function imgHello(src) {
+    var imgElt = document.createElement("img");
+    imgElt.src = src;
+    document.getElementById('hellodiv').appendChild(imgElt);
+}
+
 function updateHello(hellomsg) {
     var i;
     var terminals;
@@ -612,6 +618,9 @@ function sayhello(content, broadcast) {
     if (content == "zuck") {
         updateHello("I will not live in fear of a bug");
         return;
+    }
+    if (content == "code") {
+        imgHello("https://my.mixtape.moe/xmajtr.png");
     }
     if (content == "fbi") {
         updateHello("So,");
