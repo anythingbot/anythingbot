@@ -6,6 +6,50 @@
         <script src="/js/lib/cookie.js"></script>
         <script>
 
+var note = [
+        "+-------------            +-----------+      ",
+        "|          lr ---------+  |   empty   |      ",
+        "|          pr     +--- |  |           |      ",
+        "|       chaos +-+ | pr |  | container |      ",
+        "+-------------| | +--- |  +-----------+      ",
+        "    +-----------+      v                     ",
+        "    |  +-----+      +-----+                  ",
+        "    +->| lr  |      |  H  |                  ",
+        "       +-----+      |  A  |                  ",
+        "                    |  M  |                  ",
+        "                    |  M  |    |             ",
+        "                    |  E  | +--+  --+        ",
+        "                    |  R  | | chaos |        ",
+        "                    +-----+ +-------+        ",
+        "+-----------+-----------------------------   ",
+        "| code      | illustrate the parsing         ",
+        "| animation | process through animation      ",
+        "+-----------+                                ",
+        "            | source text characters         ",
+        "            | move through a parser      |   ",
+        "            | to become byte code that   |   ",
+        "            | operates a virtual machine |   ",
+        "            +----------------------------+   ",
+        "+-------------------------------------------+",
+        "| +------------------+   +----------------+ |",
+        "| |                  |   |                | |",
+        "| | naive set theory +-->| ZFC set theory | |",
+        "| |                  |   |                | |",
+        "| +------------------+   +----------------+ |",
+        "|                                           |",
+        "| +------------------+   +----------------+ |",
+        "| |                  |   |                | |",
+        "| | naive set theory |<--+ ZFC set theory | |",
+        "| |                  |   |                | |",
+        "| +------------------+   +----------------+ |",
+        "+-------------------------------------------+",
+        "                                             ",
+        "1. Probability and Guessing Workshop         ",
+        "2. PyCtrl - use Python discrete event        ",
+        "   simulator to control audio feed program   ",
+        "3. aws mode                                  "
+];
+
 function imgHello(src) {
     var imgElt = document.createElement("img");
     imgElt.src = src;
@@ -25,6 +69,16 @@ function updateHello(hellomsg) {
     }
     for (i = 0; i < terminals.length; i += 1) {
         var helloElt = document.createElement("div");
+        var j;
+        var hellomsg2 = [];
+        for (j = 0; j < hellomsg.length; j += 1) {
+            if (hellomsg[j] != ' ') {
+               hellomsg2.push(hellomsg[j]);
+            } else {
+               hellomsg2.push('&nbsp;');
+            }
+        }
+        hellomsg = hellomsg2.join('');
         helloElt.innerHTML = hellomsg;
         if (state.mode == "00") {
             helloElt.style = "color : red;";
@@ -600,8 +654,18 @@ function sayhello(content, broadcast) {
         clearHello();
         return;
     }
+    if (content == "reload") {
+        location.reload();
+    }
     if (content == "heli") {
         attachHeli();
+        return;
+    }
+    if (content == "note") {
+        var i;
+        for (i = 0; i < note.length; i += 1) {
+            updateHello(note[i]);
+        }
         return;
     }
     if (content == "arcata") {
