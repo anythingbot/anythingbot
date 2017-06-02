@@ -8,11 +8,13 @@
 		<script src="/js/lib/cookie.js"></script>
         <script>
 
-
 function updateVideo(content) {
-    if (content.expectedMID != content.actualMID) {
+    // Reload if playing wrong media item or more than a minute from cue
+    if (content.expectedMID != content.actualMID ||
+        Math.abs(content.mediaSecondsElapsed - content.playerSecondsElapsed) > 60) {
         location.reload();
     }
+    // console.log(content);
 	// var videoElt = document.createElement("div");
 	// videoElt.innerHTML = JSON.stringify(content);
 	// document.getElementById('videodiv').appendChild(videoElt);
@@ -39,11 +41,16 @@ function sendmsg(content) {
 	ws.send(JSON.stringify(data));
 }
 
+var state;
+
 function sendpulse() {
     var now = Date.now();
 	var handle = getCookie("handle");
     var mid = document.getElementById('videomid').value;
-	sendmsg({now:now,handle:handle,mid:mid});
+    var pulsedata = {now:now,handle:handle,mid:mid};
+    var playTime = (now - state.stateInitAt) / 1000;
+    pulsedata.playerSecondsElapsed = state.secondsElapsed + playTime;
+	sendmsg(pulsedata);
 }
 
 var pulse = 0;
@@ -54,9 +61,19 @@ function pageLoaded() {
 					{{data.secondsRemaining}} * 1000);
 }
 
-var state = {
-    SCoffsetMilliseconds : 1000 * {{data.time}},
+state = {
+    SCoffsetMilliseconds : 1000 * {{data.secondsElapsed}},
+    secondsTotal : {{data.secondsTotal}},
+    secondsElapsed : {{data.secondsElapsed}},
+    stateInitAt : Date.now()
 };
+
+{{#if data.mediaIsSoundcloud}}
+state.mediatype = "soundcloud";
+{{/if}}
+{{#if data.mediaIsYoutube}}
+state.mediatype = "youtube";
+{{/if}}
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Bot Will Accept Anything</title>
