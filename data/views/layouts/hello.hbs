@@ -6,50 +6,6 @@
         <script src="/js/lib/cookie.js"></script>
         <script>
 
-var note = [
-        "+-------------            +-----------+      ",
-        "|          lr ---------+  |   empty   |      ",
-        "|          pr     +--- |  |           |      ",
-        "|       chaos +-+ | pr |  | container |      ",
-        "+-------------| | +--- |  +-----------+      ",
-        "    +-----------+      v                     ",
-        "    |  +-----+      +-----+                  ",
-        "    +->| lr  |      |  H  |                  ",
-        "       +-----+      |  A  |                  ",
-        "                    |  M  |                  ",
-        "                    |  M  |    |             ",
-        "                    |  E  | +--+  --+        ",
-        "                    |  R  | | chaos |        ",
-        "                    +-----+ +-------+        ",
-        "+-----------+-----------------------------   ",
-        "| code      | illustrate the parsing         ",
-        "| animation | process through animation      ",
-        "+-----------+                                ",
-        "            | source text characters         ",
-        "            | move through a parser      |   ",
-        "            | to become byte code that   |   ",
-        "            | operates a virtual machine |   ",
-        "            +----------------------------+   ",
-        "+-------------------------------------------+",
-        "| +------------------+   +----------------+ |",
-        "| |                  |   |                | |",
-        "| | naive set theory +-->| ZFC set theory | |",
-        "| |                  |   |                | |",
-        "| +------------------+   +----------------+ |",
-        "|                                           |",
-        "| +------------------+   +----------------+ |",
-        "| |                  |   |                | |",
-        "| | naive set theory |<--+ ZFC set theory | |",
-        "| |                  |   |                | |",
-        "| +------------------+   +----------------+ |",
-        "+-------------------------------------------+",
-        "                                             ",
-        "1. Probability and Guessing Workshop         ",
-        "2. PyCtrl - use Python discrete event        ",
-        "   simulator to control audio feed program   ",
-        "3. aws mode                                  "
-];
-
 function imgHello(src) {
     var imgElt = document.createElement("img");
     imgElt.src = src;
@@ -110,6 +66,18 @@ function clearHello() {
     }
 }
 
+var countdown;
+
+var reloadCountdown = function () {
+    updateHello('reloading in ' + countdown + ' ...');
+    if (countdown == 0) {
+        location.reload();
+    } else {
+        countdown -= 1;
+        setTimeout(reloadCountdown, 1000);
+    }
+};
+
 var host = window.document.location.host.replace(/:.*/, '');
 var ws = new WebSocket('ws://' + host + ':3010');
 window.addEventListener('beforeunload',function () { ws.close(); });
@@ -122,8 +90,13 @@ ws.onmessage = function (event) {
         var argArray = args.split(" ");
         setCookie("opentime",argArray[2],14);
     }
+    if (msg == "a client said: restart") {
+        setTimeout(function () { countdown = 10; reloadCountdown(); }, 1000);
+    }
     updateHello(msg);
 };
+
+
 
 // HUMAN: enter your handle into the HTML element handleInput and press the
 //        setHandle() button to set your handle
@@ -659,13 +632,6 @@ function sayhello(content, broadcast) {
     }
     if (content == "heli") {
         attachHeli();
-        return;
-    }
-    if (content == "note") {
-        var i;
-        for (i = 0; i < note.length; i += 1) {
-            updateHello(note[i]);
-        }
         return;
     }
     if (content == "arcata") {

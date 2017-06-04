@@ -8,10 +8,13 @@
 		<script src="/js/lib/cookie.js"></script>
         <script>
 
+// if client is more than this many seconds out of sync, reload
+var syncLimit = 30;
+
 function updateVideo(content) {
+    var desync = Math.abs(content.mediaSecondsElapsed - content.playerSecondsElapsed);
     // Reload if playing wrong media item or more than a minute from cue
-    if (content.expectedMID != content.actualMID ||
-        Math.abs(content.mediaSecondsElapsed - content.playerSecondsElapsed) > 60) {
+    if (content.expectedMID != content.actualMID || desync > syncLimit) {
         location.reload();
     }
     // console.log(content);
