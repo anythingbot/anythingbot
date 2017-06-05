@@ -12,7 +12,7 @@ function imgHello(src) {
     document.getElementById('hellodiv').appendChild(imgElt);
 }
 
-function updateHello(hellomsg) {
+function updateHello_impl(hellomsg, eltType) {
     var i;
     var terminals;
     if (state.mode == '0000') {
@@ -24,7 +24,7 @@ function updateHello(hellomsg) {
         terminals = [[document.getElementById('hellodiv'),null]];
     }
     for (i = 0; i < terminals.length; i += 1) {
-        var helloElt = document.createElement("div");
+        var helloElt = document.createElement(eltType);
         var j;
         var hellomsg2 = [];
         for (j = 0; j < hellomsg.length; j += 1) {
@@ -47,6 +47,14 @@ function updateHello(hellomsg) {
     }
 }
 
+function updateHello(hellomsg) {
+    updateHello_impl(hellomsg, 'div');
+}
+
+function updateHelloSpan(hellomsg) {
+    updateHello_impl(hellomsg, 'span');
+}
+
 function clearHello() {
     state.mode = '';
     var terminals = [
@@ -66,10 +74,11 @@ function clearHello() {
     }
 }
 
+var countdownStarted = 0;
 var countdown;
 
 var reloadCountdown = function () {
-    updateHello('reloading in ' + countdown + ' ...');
+    updateHelloSpan('&nbsp;' + countdown);
     if (countdown == 0) {
         location.reload();
     } else {
@@ -90,10 +99,14 @@ ws.onmessage = function (event) {
         var argArray = args.split(" ");
         setCookie("opentime",argArray[2],14);
     }
-    if (msg == "a client said: restart") {
-        setTimeout(function () { countdown = 10; reloadCountdown(); }, 1000);
+    if (msg == "a client said: restart" && (! countdownStarted)) {
+        countdownStarted = 1;
+        countdown = 15;
+        updateHelloSpan('reloading in');
+        reloadCountdown();
+    } else {
+        updateHello(msg);
     }
-    updateHello(msg);
 };
 
 

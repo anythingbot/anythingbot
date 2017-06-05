@@ -8,6 +8,21 @@
 		<script src="/js/lib/cookie.js"></script>
         <script>
 
+var countdownStarted = 0;
+var countdown;
+
+var reloadCountdown = function () {
+	var videoElt = document.createElement("span");
+	videoElt.innerHTML = '&nbsp;' + countdown;
+	document.getElementById('videodiv').appendChild(videoElt);
+    if (countdown == 0) {
+        location.reload();
+    } else {
+        countdown -= 1;
+        setTimeout(reloadCountdown, 1000);
+    }
+};
+
 // if client is more than this many seconds out of sync, reload
 var syncLimit = 30;
 
@@ -16,6 +31,14 @@ function updateVideo(content) {
     // Reload if playing wrong media item or more than a minute from cue
     if (content.expectedMID != content.actualMID || desync > syncLimit) {
         location.reload();
+    }
+    if (content.restartState && (! countdownStarted)) {
+        countdownStarted = 1;
+        countdown = 15;
+        var videoElt = document.createElement("span");
+        videoElt.innerHTML = 'reloading in';
+        document.getElementById('videodiv').appendChild(videoElt);
+        reloadCountdown();
     }
     // console.log(content);
 	// var videoElt = document.createElement("div");
