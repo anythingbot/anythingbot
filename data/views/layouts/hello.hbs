@@ -612,6 +612,69 @@ function drawheli() {
     }
 }
 
+var poem1 = [ "Terrorists vs. Taxpayers",
+        " ",
+        "Suppose I am a taxpayer and a terrorist",
+        "That means I have to pay taxes to the NSA",
+        "And once I do that, the NSA will treat me",
+        "Like a terrorist, steal from me, and call",
+        "Me names because the NSA wants me dead",
+        " ",
+        "Why shouldn't I do everything in my power",
+        "To get people in the NSA social network",
+        "To commit suicide as fast as possible?",
+        "The faster they commit suicide, the sooner",
+        "I can stop paying taxes, the sooner",
+        "All of the bullies who called me names will",
+        "Be dead, and their families dead too",
+        " ",
+        "Oh I'm sorry, did I break your concentration?",
+        " ",
+        "If you are a bully who called me a terrorist",
+        "I want you to commit suicide",
+        "I want you to kill your kids and parents first though",
+        " ",
+        "You want me to pay taxes",
+        "With the monopoly money you made?",
+        "I want you to pay taxes with the lives",
+        "Of your kids and parents",
+        " ",
+        "It's a central bank",
+        "But we don't deal in paper",
+        "We deal in the dead" ];
+
+var poem2 = [ "Terrorists vs. Taxpayers",
+        " ",
+        "Suppose I     am         a     taxpayer and   a     terrorist",
+        "That    means I          have  to       pay   taxes to        the   NSA",
+        "And     once  I          do    that,    the   NSA   will      treat me",
+        "Like    a     terrorist, steal from     me,   and   call",
+        "Me      names because    the   NSA      wants me    dead",
+        " ",
+        "Why shouldn't I       do      everything in     my        power",
+        "To  get       people  in      the        NSA    social    network",
+        "To  commit    suicide as      fast       as     possible?",
+        "The faster    they    commit  suicide,   the    sooner",
+        "I   can       stop    paying  taxes,     the    sooner",
+        "All of        the     bullies who        called me        names   will",
+        "Be  dead,     and     their   families   dead   too",
+        " ",
+        "Oh I'm sorry, did I break your concentration?",
+        " ",
+        "If you  are a  bully  who     called me  a       terrorist",
+        "I  want you to commit suicide",
+        "I  want you to kill   your    kids   and parents first     though",
+        " ",
+        "You  want me       to    pay     taxes",
+        "With the  monopoly money you     made?",
+        "I    want you      to    pay     taxes with the lives",
+        "Of   your kids     and   parents",
+        " ",
+        "It's a    central bank",
+        "But  we   don't   deal in   paper",
+        "We   deal in      the  dead" ];
+
+
 function sayhello(content, broadcast) {
     if (content == "00") {
         clearHello();
@@ -638,37 +701,17 @@ function sayhello(content, broadcast) {
         updateHello("I will not live in fear of a bug");
         return;
     }
-    if (content == "newyorkerpoem") {
-        updateHello("Terrorists vs. Taxpayers");
-        updateHello(" ");
-        updateHello("Suppose I am a taxpayer and a terrorist");
-        updateHello("That means I have to pay taxes to the NSA");
-        updateHello("And once I do that, the NSA will treat me");
-        updateHello("Like a terrorist, steal from me, and call");
-        updateHello("Me names because the NSA wants me dead");
-        updateHello(" ");
-        updateHello("Why shouldn't I do everything in my power");
-        updateHello("To get people in the NSA social network");
-        updateHello("To commit suicide as fast as possible?");
-        updateHello("The faster they commit suicide, the sooner");
-        updateHello("I can stop paying taxes, the sooner");
-        updateHello("All of the bullies who called me names will");
-        updateHello("Be dead, and their families dead too");
-        updateHello(" ");
-        updateHello("Oh I'm sorry, did I break your concentration?");
-        updateHello(" ");
-        updateHello("If you are a bully who called me a terrorist");
-        updateHello("I want you to commit suicide");
-        updateHello("I want you to kill your kids and parents first though");
-        updateHello(" ");
-        updateHello("You want me to pay taxes");
-        updateHello("With the monopoly money you made?");
-        updateHello("I want you to pay taxes with the lives");
-        updateHello("Of your kids and parents");
-        updateHello(" ");
-        updateHello("It's a central bank");
-        updateHello("But we don't deal in paper");
-        updateHello("We deal in the dead");
+    if (content == "poem") {
+        var poem;
+        if (state.mode == '00') {
+            poem = poem2;
+        } else {
+            poem = poem1;
+        }
+        var i;
+        for (i = 0; i < poem.length; i += 1) {
+             updateHello(poem[i]);
+        }
         return;
     }
     if (content == "code") {
