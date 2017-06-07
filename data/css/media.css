@@ -4,7 +4,7 @@ body {
     background-repeat: no-repeat;
     background-position: top right;
     background-color: #333;
-    color: #333;
+    color: #eee;
     border: 20px solid #555;
     width: 700px;
     margin-top: 15px;
@@ -18,7 +18,7 @@ body {
 .ContentA {
     margin: 15px 15px 15px;
     padding: 16px;
-    color: #222;
+    color: #ddd;
     background-color: #222;
     border: 2px dashed black;
     width: 600px;
