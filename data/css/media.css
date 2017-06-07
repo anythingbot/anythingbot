@@ -1,11 +1,12 @@
 body {
-    margin: 0px;
+    margin: 0px auto;
     padding: 0px;
     background-repeat: no-repeat;
     background-position: top right;
-    background-color: #ddd;
-    color: #ddd;
-    border: 15px solid white;
+    background-color: #333;
+    color: #333;
+    border: 15px solid #555;
+    width: 700px;
 }
 
 #Header {
@@ -16,9 +17,10 @@ body {
 .ContentA {
     margin: 15px 15px 15px;
     padding: 16px;
-    color: #bbb;
-    background-color: #bbb;
+    color: #222;
+    background-color: #222;
     border: 2px dashed black;
+    width: 600px;
 }
 
 p {
@@ -77,6 +79,7 @@ h3 {
     font: 16px courier;
     font-weight: 800;
     margin: 6px 0px 3px 0px;
+    width:450px;
 }
 
 img {
