@@ -1,23 +1,24 @@
 body {
-    margin: 5px;
-    padding: 5px;
+    margin: 0px;
+    padding: 0px;
     background-repeat: no-repeat;
     background-position: top right;
-    background-color: black;
-    color: black;
+    background-color: #ddd;
+    color: #ddd;
+    border: 15px solid white;
 }
 
 #Header {
-    margin: 85px 100px 0px 100px;
-    padding: 5px;
+    margin: 0px 0px 0px 0px;
+    padding: 10px;
 }
 
-.Content {
-    margin: 0px 100px 50px;
-    padding: 10px;
-    color: black;
-    background-color: #eee;
-    border: 1px dashed black;
+.ContentA {
+    margin: 15px 15px 15px;
+    padding: 16px;
+    color: #bbb;
+    background-color: #bbb;
+    border: 2px dashed black;
 }
 
 p {
@@ -56,9 +57,11 @@ a:hover {
 }
 
 h1 {
-    color: #333;
+    color: white;
+    background-color: black;
     font: 24px/24px verdana, arial, helvetica, sans-serif;
     font-weight: 900;
+    border: thin solid black;
 }
 
 h2 {
