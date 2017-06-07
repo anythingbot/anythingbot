@@ -5,12 +5,13 @@ body {
     background-position: top right;
     background-color: #333;
     color: #333;
-    border: 15px solid #555;
+    border: 20px solid #555;
     width: 700px;
+    margin-top: 15px;
 }
 
 #Header {
-    margin: 0px 0px 0px 0px;
+    margin: 15px 0px 0px 0px;
     padding: 10px;
 }
 
