@@ -66,14 +66,15 @@ h1 {
 
 h2 {
     color: #333;
-    font: 12px verdana, arial, helvetica, sans-serif;
+    font: 18px verdana, arial, helvetica, sans-serif;
     font-weight: 700;
     margin: 18px 0px 3px 0px;
 }
 
 h3 {
-    color: #666;
-    font-size: 11px;
+    color: white;
+    background-color: black;
+    font: 16px courier;
     font-weight: 800;
     margin: 6px 0px 3px 0px;
 }
