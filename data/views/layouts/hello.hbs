@@ -6,10 +6,13 @@
         <script src="/js/lib/cookie.js"></script>
         <script>
 
-function imgHello(src) {
+function imgHello(src,width) {
     var imgElt = document.createElement("img");
     imgElt.src = src;
     document.getElementById('hellodiv').appendChild(imgElt);
+    if (width) {
+        imgElt.width = width;
+    }
 }
 
 function updateHello_impl(hellomsg, eltType) {
@@ -728,6 +731,9 @@ function sayhello(content, broadcast) {
     }
     if (content == "code") {
         imgHello("https://my.mixtape.moe/xmajtr.png");
+    }
+    if (content == "boat") {
+        imgHello("http://anythingbot.org/anythingboat.JPG",450);
     }
     if (content == "fbi") {
         updateHello("So,");
