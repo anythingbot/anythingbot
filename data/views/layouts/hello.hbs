@@ -15,7 +15,7 @@ function imgHello(src,width) {
     }
 }
 
-function updateHello_impl(hellomsg, eltType) {
+function updateHello_impl(hellomsg, eltType, hasMarkup) {
     var i;
     var terminals;
     if (state.mode == '0000') {
@@ -31,7 +31,7 @@ function updateHello_impl(hellomsg, eltType) {
         var j;
         var hellomsg2 = [];
         for (j = 0; j < hellomsg.length; j += 1) {
-            if (hellomsg[j] != ' ') {
+            if (hasMarkup || hellomsg[j] != ' ') {
                hellomsg2.push(hellomsg[j]);
             } else {
                hellomsg2.push('&nbsp;');
@@ -50,8 +50,8 @@ function updateHello_impl(hellomsg, eltType) {
     }
 }
 
-function updateHello(hellomsg) {
-    updateHello_impl(hellomsg, 'div');
+function updateHello(hellomsg,hasMarkup) {
+    updateHello_impl(hellomsg, 'div',hasMarkup);
 }
 
 function updateHelloSpan(hellomsg) {
@@ -715,6 +715,14 @@ function sayhello(content, broadcast) {
     }
     if (content == "zuck") {
         updateHello("I will not live in fear of a bug");
+        return;
+    }
+    if (content == "teen") {
+        updateHello("<a href=\"http://www.pbs.org/wgbh/pages/frontline/shows/cool/etc/script.html\">They look at the teen market as part of this massive empire that they're colonizing. Teens are like Africa.</a>",1);
+        return;
+    }
+    if (content == "math") {
+        updateHello("insist on wide latitude in the study of contradictions");
         return;
     }
     if (content == "poem") {
