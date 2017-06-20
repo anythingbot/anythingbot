@@ -455,6 +455,10 @@ var keyActions3 = [
     function () { virtualKbd('/','?');},
 ];
 
+var keyActions4 = [
+    function () { virtualKbd(' ',' ');},
+];
+
 function pageLoaded() {
     document.body.style.fontFamily = "courier";
     getHandle();
@@ -484,6 +488,12 @@ function pageLoaded() {
         var btnspan = kbd3.children[i];
         var btnelt = btnspan.children[0];
         btnelt.addEventListener('click', keyActions3[i]);
+    }
+    var kbd4 = document.getElementById('kbddiv4');
+    for (i = 0; i < kbd4.children.length; i += 1) {
+        var btnspan = kbd4.children[i];
+        var btnelt = btnspan.children[0];
+        btnelt.addEventListener('click', keyActions4[i]);
     }
     document.body.onkeydown = function (e) {
         if (! (e.srcElement === document.body ||
