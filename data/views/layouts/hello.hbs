@@ -268,11 +268,16 @@ function attachHeli() {
     e.innerHTML = "drawcard()";
     ctrls2.appendChild(e);
 
+    e = document.createElement('button');
+    e.setAttribute('onclick',"drawcard2()");
+    e.innerHTML = "drawcard2()";
+    ctrls2.appendChild(e);
+
     var view = document.createElement('canvas');
     view.setAttribute('id','hellocanvas');
-    view.setAttribute('width',300);
-    view.setAttribute('height',300);
-    view.setAttribute('style','border:1px solid #000000;');
+    view.setAttribute('width',600);
+    view.setAttribute('height',600);
+    view.setAttribute('style','border:3px dashed #000000;');
     var c = document.getElementById('canvasdiv');
     c.appendChild(ctrls);
     c.appendChild(ctrls2);
@@ -495,6 +500,7 @@ function pageLoaded() {
         var btnelt = btnspan.children[0];
         btnelt.addEventListener('click', keyActions4[i]);
     }
+    // attachHeli();
     document.body.onkeydown = function (e) {
         if (! (e.srcElement === document.body ||
                e.target === document.body)) {
@@ -611,15 +617,30 @@ function drawHeliArray(params, radiuslimit) {
 }
 
 function drawcard() {
-    var paramlist = document.getElementById('cardParams').value;
+    var x1 = 30;
+    var y1 = 30;
+    var x2 = 120;
+    var y2 = 45
     var ctx = state.ctx;
     ctx.beginPath();
-    ctx.moveTo(30,30);
-    ctx.lineTo(120,30);
-    ctx.lineTo(120,45);
-    ctx.lineTo(30,45);
-    ctx.lineTo(30,30);
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x2,y1);
+    ctx.lineTo(x2,y2);
+    ctx.lineTo(x1,y2);
+    ctx.lineTo(x1,y1);
     ctx.stroke();
+}
+
+function drawcard2() {
+    var x1 = 30;
+    var y1 = 30;
+    var x2 = 120;
+    var y2 = 45
+    var ctx = state.ctx;
+    ctx.beginPath();
+    ctx.rect(x1,y1,x2 - x1,y2 - y1);
+    ctx.stroke();
+    console.log('foo');
 }
 
 function drawheli() {
@@ -701,7 +722,38 @@ var poem2 = [ "Terrorists vs. Taxpayers",
         "We   deal in      the  dead" ];
 
 
+function chaosbot() {
+    updateHello("topic/nominate : 8 hours : 1 period : [A]");
+    updateHello("primary/renominate : 48 hours : 6 periods : [B,C,D,E,F,G]");
+    updateHello("secondary/test : 48 hours : 6 periods : [H,I,J,K,L,M]");
+    var periodNames = ['A','B','C','D','E','F','G','H','I','J','K','L','M'];
+    var now = new Date();
+    updateHello("" + now.getHours() + ":" + now.getMinutes());
+    var init = new Date();
+    init.setMilliseconds(0);
+    init.setSeconds(0);
+    init.setMinutes(0);
+    init.setHours(17);
+    init.setMonth(5);
+    init.setDate(21);
+    var roundMilliseconds = 104 * 60 * 60 * 1000;
+    var offset = 0;
+    if (now - init <= 0) {
+        now.setTime(now.getTime() + roundMilliseconds);
+        offset -= 1;
+    }
+    var roundIndex = (now - init) / roundMilliseconds;
+    var periodIndex = 13 * (roundIndex - Math.trunc(roundIndex));
+    var fractionalPeriod = 1000 * (periodIndex - Math.trunc(periodIndex));
+    updateHello("Round " + (offset + Math.trunc(roundIndex)));
+    updateHello("Period " + periodNames[Math.trunc(periodIndex)]);
+    updateHello("Fractional Period " + Math.trunc(fractionalPeriod) + " (1000)");
+}
+
 function sayhello(content, broadcast) {
+    if (content == "chaosbot") {
+        chaosbot();
+    }
     if (content == "00") {
         clearHello();
         state.mode = '00';
