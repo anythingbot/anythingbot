@@ -623,6 +623,15 @@ function drawcard() {
     var y2 = 45
     var ctx = state.ctx;
     ctx.beginPath();
+    ctx.rect(0,0,600,600);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.beginPath();
+    ctx.rect(x1,y1,x2 - x1,y2 - y1);
+    ctx.fillStyle = "blue";
+    ctx.fill();
+    ctx.beginPath();
+    ctx.lineWidth = "2";
     ctx.moveTo(x1,y1);
     ctx.lineTo(x2,y1);
     ctx.lineTo(x2,y2);
@@ -637,10 +646,6 @@ function drawcard2() {
     var x2 = 120;
     var y2 = 45
     var ctx = state.ctx;
-    ctx.beginPath();
-    ctx.rect(x1,y1,x2 - x1,y2 - y1);
-    ctx.stroke();
-    console.log('foo');
 }
 
 function drawheli() {
@@ -728,7 +733,26 @@ function chaosbot() {
     updateHello("secondary/test : 48 hours : 6 periods : [H,I,J,K,L,M]");
     var periodNames = ['A','B','C','D','E','F','G','H','I','J','K','L','M'];
     var now = new Date();
-    updateHello("" + now.getHours() + ":" + now.getMinutes());
+    var nowMinutes = now.getMinutes();
+    if (nowMinutes < 10) {
+        nowMinutes = "0" + nowMinutes;
+    } else {
+        nowMinutes = "" + nowMinutes;
+    }
+    var nowHours = now.getHours();
+    var nowAMPM;
+    if (nowHours > 12) {
+        nowHours -= 12;
+        nowAMPM = 'PM';
+    } else {
+        nowAMPM = 'AM';
+    }
+    if (nowHours < 10) {
+        nowHours = "0" + nowHours;
+    } else {
+        nowHours = "" + nowHours;
+    }
+    updateHello("" + nowHours + ":" + nowMinutes + " " + nowAMPM);
     var init = new Date();
     init.setMilliseconds(0);
     init.setSeconds(0);
