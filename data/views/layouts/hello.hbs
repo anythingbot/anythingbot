@@ -799,6 +799,9 @@ function sayhello(content, broadcast) {
         attachHeli();
         return;
     }
+    if (content == "nuke") {
+        updateHello("Israel");
+    }
     if (content == "zuck") {
         updateHello("I will not live in fear of a bug");
         return;
