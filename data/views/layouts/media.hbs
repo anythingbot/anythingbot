@@ -92,17 +92,17 @@ state = {
     secondsTotal : {{data.secondsTotal}},
     secondsElapsed : {{data.secondsElapsed}},
     stateInitAt : Date.now(),
-    mediatype : 'personality'
+    mediaNetwork : 'personality'
 };
 
 {{#if data.mediaIsSoundcloud}}
-state.mediatype = "soundcloud";
+state.mediaNetwork = "soundcloud";
 {{/if}}
 {{#if data.mediaIsYoutube}}
-state.mediatype = "youtube";
+state.mediaNetwork = "youtube";
 {{/if}}
 {{#if data.mediaIsDailymotion}}
-state.mediatype = "dailymotion";
+state.mediaNetwork = "dailymotion";
 {{/if}}
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
