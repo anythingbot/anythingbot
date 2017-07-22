@@ -104,6 +104,12 @@ state.mediaNetwork = "youtube";
 {{#if data.mediaIsDailymotion}}
 state.mediaNetwork = "dailymotion";
 {{/if}}
+{{#if data.mediaIsImage}}
+state.mediaNetwork = "image";
+{{/if}}
+{{#if data.mediaIsTitle}}
+state.mediaNetwork = "title";
+{{/if}}
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Bot Will Accept Anything</title>

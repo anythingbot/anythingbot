@@ -65,6 +65,7 @@ h1 {
     font: 24px/24px verdana, arial, helvetica, sans-serif;
     font-weight: 900;
     border: thin solid black;
+    padding: 10px;
 }
 
 h2 {
