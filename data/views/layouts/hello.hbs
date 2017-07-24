@@ -16,6 +16,9 @@ function imgHello(src,width) {
 }
 
 function updateHello_impl(hellomsg, eltType, hasMarkup) {
+    if (hellomsg.length == 0) {
+        hellomsg = ' ';
+    }
     var i;
     var terminals;
     if (state.mode == '0000') {
@@ -664,6 +667,79 @@ function drawheli() {
     }
 }
 
+var idd1 = [
+'Jane was still staring after him when a hand touched her',
+'elbow. She whirled. It was the pale man. A cigarette dangled',
+'from his mouth. He held an outsized cup of beer in one hand.',
+'',
+'The pale man looked alarmingly out of place in short pants.',
+'His knees were knobby and fish belly white; the sunlight',
+'seemed loath to touch them. "I put in your application for',
+'scholarship aid through the school secretary," he said. "It',
+'won\'t do any good."',
+'',
+'"What?" she said blankly.',
+'',
+'He took her arm and strolled her toward the shaded side of',
+'the tavern. White-dressed waiters shot through its doors,',
+'trays in hand, trailing steam. "How much Grammar do you',
+'have?" he asked.',
+'',
+'Jane shook her head. She had no idea what he was talking',
+'about.',
+'',
+'"It\'s the queen of sciences," he said testily, speaking',
+'around his cigarette. "You really ought to—well, never mind.',
+'Let me put it this way: There is a logic to the shapes of',
+'lives and relationships, and that logic is embedded in the',
+'stuff of existence. The lover does not awake one morning',
+'convinced he would rather be an engineer. The musician does',
+'not abandon her keyboard without regrets. The CEO does not',
+'surrender wealth. Or if he does, he will find it easier to',
+'give up everything, find a cave in the mountains and become',
+'a philosopher than to simply downscale his life-style. You',
+'see? We are all of us living stories that on some deep level',
+'give us satisfaction. If we are unhappy with our stories,',
+'that is not enough to free us from them. We must find other',
+'stories that flow naturally from those we have been living."',
+'',
+'"So you\'re saying… that I\'m living a story in which I don\'t',
+'get financial aid? Is that it?"',
+'',
+'He shook his head. "It\'s not you. The secretary is living a',
+'story in which she doesn\'t give you financial aid. It\'s a',
+'subtle distinction, but a crucial one. It gives you an out."',
+'',
+'"What do I have to do?"',
+'',
+'"You have to look at yourself through her eyes. She sees a',
+'troublemaker, a dilatory student, someone with',
+'\'potential\'—whatever that might be—who is lazy, who will',
+'never apply herself, who neglects her studies, and on whom a',
+'scholarship would be wasted."',
+'',
+'"But I\'m not like that!"',
+'',
+'"What does that matter? In her story that\'s who you are, and',
+'in her story your sort rarely changes. Occasionally, though,',
+'it happens. Your low qualities are channeled for low',
+'purposes. Strawwe used to be just like you before he',
+'snitched on his friends."',
+'',
+'"What? I wouldn\'t!"',
+'',
+'The pale man had smoked his cigarette down to the filter. He',
+'lit a new one from the coal, and ate the butt. "You\'ll have',
+'to weigh the alternatives. On the one hand it\'s an',
+'unpleasant story to live. Your former friends will despise',
+'you and they may even beat you. You won\'t respect yourself.',
+'On the other hand, people you like don\'t get scholarships.',
+'You can keep your own story or you can get a doctorate in',
+'alchemy. But you can\'t do both.  "Think about it."',
+'',
+'His speech done, the pale man looked away.'
+];
+
 var poem1 = [ "Terrorists vs. Taxpayers",
         " ",
         "Suppose I am a taxpayer and a terrorist",
@@ -828,6 +904,12 @@ function sayhello(content, broadcast) {
         var i;
         for (i = 0; i < poem.length; i += 1) {
              updateHello(poem[i]);
+        }
+    }
+    if (content == "grammar") {
+        var i;
+        for (i = 0; i < idd1.length; i += 1) {
+            updateHello(idd1[i]);
         }
     }
     if (content == "code") {
