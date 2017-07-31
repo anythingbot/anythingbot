@@ -6,6 +6,13 @@
 <h1>{{data.title}}</h1>
 {{/if}}
 
+{{#if data.mediaIsStory}}
+<h1>{{data.title}}</h1>
+{{#each data.content}}
+<p>{{this}}</p>
+{{/each}}
+{{/if}}
+
 {{#if data.mediaIsImage}}
 <img src="{{data.mid}}"></img>
 {{/if}}
