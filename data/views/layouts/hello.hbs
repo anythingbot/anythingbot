@@ -667,6 +667,50 @@ function drawheli() {
     }
 }
 
+var kfj = [
+'I don\'t want kids, I don\'t want friends, and I don\'t',
+'want a job.',
+'',
+'I\'ve had a nasty, horrible life, and I don\'t want kids',
+'because I don\'t want to tell them I had a nasty horrible',
+'life. I don\'t want to tell them I was a slave and lived in',
+'fear my whole life. I hate the people here. I hate my',
+'former coworkers. They are monsters. They are life unworthy',
+'of life. They are like snails. Murdering these people takes',
+'all of the meaning and weight out of the word "murder". It',
+'is more like chores or cleaning up the dishes. These human',
+'beings are technically "living animals" but from my point',
+'of view they\'re pests.',
+'',
+'I mean it when I say they\'re life unworthy of life. They',
+'are people who should be put in concrete. They should be',
+'put to death by being placed in wet concrete.',
+'',
+'I don\'t understand why I live in a society that tolerates',
+'them. I don\'t. I thought Americans were more murderous, I',
+'thought they would figure out a way to filter out the human',
+'trash. I thought we had enough natural born killers to',
+'filter out the slime and sludge. As it is, I don\'t want',
+'kids because I don\'t want my kids raised around trash',
+'people. I don\'t want my kids to think it is ok to be a',
+'trash person.',
+'',
+'When I say "trash person", I mean people like Max Levchin,',
+'Keith Rabois, Ray Courtney, Itamar Herzberg. I mean',
+'Harvard students. I mean MIT students. I mean Cal',
+'students. I mean Stanford students. These are the',
+'trash people. Murdering these people isn\'t murder. It',
+'carries none of the weight or meaning or significance',
+'of murdering an actual, living human being. It\'s a',
+'chore. It\'s a bore. It\'s work.',
+'',
+'I don\'t want kids, I don\'t want friends, I don\'t want a',
+'job. I want a team that can plan and execute genocide. I',
+'don\'t want "mass murder". I don\'t want attention. If',
+'these trash people disappear, that is fine with me. I',
+'want empty office buildings, empty campuses, empty coffee',
+'shops. If I need company, I\'ll get a pet.'];
+
 var idd1 = [
 'Jane was still staring after him when a hand touched her',
 'elbow. She whirled. It was the pale man. A cigarette dangled',
@@ -910,6 +954,12 @@ function sayhello(content, broadcast) {
         var i;
         for (i = 0; i < idd1.length; i += 1) {
             updateHello(idd1[i]);
+        }
+    }
+    if (content == "kids") {
+        var i;
+        for (i = 0; i < kfj.length; i += 1) {
+            updateHello(kfj[i]);
         }
     }
     if (content == "code") {
