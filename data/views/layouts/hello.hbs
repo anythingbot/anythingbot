@@ -58,7 +58,7 @@ function updateHello(hellomsg,hasMarkup) {
 }
 
 function updateHelloSpan(hellomsg) {
-    updateHello_impl(hellomsg, 'span');
+    updateHello_impl(hellomsg, 'span', 0);
 }
 
 function clearHello() {
@@ -1124,6 +1124,14 @@ function sayhello(content, broadcast) {
     }
     if (content == "nuke") {
         updateHello("Israel");
+    }
+    if (content == "rand") {
+        updateHello("<div style=\"color : white\">I will not kill you</div>",1);
+        updateHello("<div style=\"color : white\">I will spend energy to kill you</div>",1);
+        updateHello("<div style=\"color : red\">(moment)</div>",1);
+        updateHello("<div style=\"color : black\">I will not let others feed you</div>",1);
+        updateHello("<div style=\"color : black\">I will not let others spend energy feeding you</div>",1);
+        document.body.style.backgroundColor = "#673695";
     }
     if (content == "airbnb") {
         updateHello("CIA whorehouse");
