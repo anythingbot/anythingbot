@@ -1122,6 +1122,49 @@ function sayhello(content, broadcast) {
         attachheli();
         return;
     }
+    if (content == "deploy") {
+        updateHello("");
+        updateHello(" #. set root password");
+        updateHello(" #. delete local .ssh known_hosts identification");
+        updateHello(" #. connect with ssh and enter root password");
+        updateHello(" #. apt-get update");
+        updateHello(" #. apt-get upgrade");
+        updateHello(" #. adduser anythingbot");
+        updateHello(" #. apt-get install vim");
+        updateHello(" #. apt-get install git");
+        updateHello(" #. iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 3000");
+        updateHello(" ");
+        updateHello(" #. connect with ssh and enter anythingbot password");
+        updateHello(" #. clone house");
+        updateHello(" #. move house id_rsa and id_rsa.pub (ssh identification) in house/DOTssh to .ssh/");
+        updateHello(" ");
+        updateHello("         AS ROOT");
+        updateHello(" #. apt-get install screen");
+        updateHello(" #. apt-get install build-essential");
+        updateHello(" #. apt-get install libssl-dev");
+        updateHello(" #. apt-get install curl");
+        updateHello(" #. curl -sL https://deb.nodesource.com/setup_6.x | sudo bash -");
+        updateHello(" #. apt-get install nodejs");
+        updateHello(" ");
+        updateHello("                 AS anythingbot");
+        updateHello(" ");
+        updateHello(" #. cd ~");
+        updateHello(" #. mkdir config");
+        updateHello(" #. cp house/config/* config/");
+        updateHello(" #. cd anythingbot");
+        updateHello(" #. npm install");
+        updateHello(" #. npm update");
+        updateHello(" #. screen");
+        updateHello(" #. node launcher.js");
+        updateHello(" ");
+        updateHello(" = RESTART THE BOT =");
+        updateHello(" ");
+        updateHello(" #. screen -r");
+        updateHello(" #. killall node ; node launcher.js");
+        updateHello(" = References =");
+        updateHello("http://linuxbsdos.com/2017/06/26/how-to-install-node-js-lts-on-debian-9-stretch/");
+        updateHello("<a href=\"http://linuxbsdos.com/2017/06/26/how-to-install-node-js-lts-on-debian-9-stretch/\">How to install Node.js LTS on Debian 9 stretch</a>",1);
+    }
     if (content == "nuke") {
         updateHello("Israel");
     }
