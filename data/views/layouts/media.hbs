@@ -34,7 +34,7 @@ function updateVideo(content) {
     }
     if (content.restartState && (! countdownStarted)) {
         countdownStarted = 1;
-        countdown = 15;
+        countdown = 30;
         var videoElt = document.createElement("span");
         videoElt.innerHTML = 'reloading in';
         document.getElementById('videodiv').appendChild(videoElt);

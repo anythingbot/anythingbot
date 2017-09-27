@@ -107,7 +107,7 @@ ws.onmessage = function (event) {
     }
     if (msg == "a client said: restart" && (! countdownStarted)) {
         countdownStarted = 1;
-        countdown = 15;
+        countdown = 30;
         updateHelloSpan('reloading in');
         reloadCountdown();
     } else {
