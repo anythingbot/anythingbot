@@ -1098,6 +1098,9 @@ function chaosbot() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "bible") {
+        updateHello("jewish folk tales");
+    }
     if (content == "chaosbot") {
         chaosbot();
     }
