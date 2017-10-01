@@ -1125,6 +1125,54 @@ function sayhello(content, broadcast) {
         attachheli();
         return;
     }
+    if (content == "bwaapm") {
+        updateHello("BWAAPM gives you");
+        updateHello("");
+        updateHello("- a subdomain named after your account name");
+        updateHello("- three GIT repositories:");
+        updateHello("  - a repository for code");
+        updateHello("  - a repository for formulas (contracts)");
+        updateHello("  - a repository for configuration (the syntax of each file)");
+        updateHello("- commits to the code repo can be anything");
+        updateHello("- commits to the formula repo must be 'forward commits' that is, it is only possible to");
+        updateHello("  append lines to files, no editing or deleting of formula content allowed");
+        updateHello("- each file in the formula repository is of the form");
+        updateHello("  [FORMULA]");
+        updateHello("      line");
+        updateHello("      line");
+        updateHello("  ...");
+        updateHello("  where [FORMULA] is the name of a formula and each line of formula text is indented");
+        updateHello("  (each line of formula text must begin with some combination of spaces and tabs of nonzero length,");
+        updateHello("  in regular expression syntax each formula line must match (\\t| )+[^#]+ a hash character (#)");
+        updateHello("  begins a comment; comment lines or partial lines are removed before processing. Comments are");
+        updateHello("  subject to the same forward commit policy as other content in the formula repository.");
+        updateHello("- the ability to configure the package front page (http://package.anythingbot.org) by adding");
+        updateHello("  a green light / red light indicator for any formula in the formula repository");
+        updateHello("- each formula in the formula repository represents a test or property of a revision of");
+        updateHello("  the code repository");
+        updateHello("- each time a new revision is pushed to the code repository, BWAAPM determines which formulas");
+        updateHello("  in the formula repository the revision satisfies");
+        updateHello("- the formulas for a given package are listed at package.anythingbot.org/formulas");
+        updateHello("- BWAAPM provides a matrix of formulas and revisions, with a 1 (with green background) in the");
+        updateHello("  entry if the revision satisfies the formula and a 0 (with red background) in the entry if");
+        updateHello("  the revision does not satisfy the formula");
+        updateHello("- formulas are written in the chapter 4 logic programming language");
+        updateHello("- each formula takes the content of the entire revision as argument");
+        updateHello("- before formulas are computed, each file is parsed, producing a syntax tree");
+        updateHello("- each formula takes two arguments: the entire revision of the text of the repository files");
+        updateHello("  as well as a translated version of the repository that replaces each file with a syntax tree");
+        updateHello("- the syntax of each file is configured in configuration repository");
+        updateHello("- an internal (not accessible outside the BWAAPM interface) GIT repository for configuration");
+        updateHello("- the language of a file may be changed at will by using the BWAAPM interface [1]");
+        updateHello("- documentation can be parsed and translated in order to verify a condition such as:");
+        updateHello("  'each function in a file in src/* is documented in some file in doc/*'");
+        updateHello("- a parser for a subset of the C programming language");
+        updateHello("");
+        updateHello("[1] BWAAPM will commit a change to the internal configuration repository in response to");
+        updateHello("an order to change the package configuration from the interface; this will likely cause");
+        updateHello("any formula that depends on the syntax tree of that file to not hold; in order to compensate,");
+        updateHello("new formulas may have to be added that take into account the new syntax of the file");
+    }
     if (content == "deploy") {
         updateHello("");
         updateHello(" #. set root password");
