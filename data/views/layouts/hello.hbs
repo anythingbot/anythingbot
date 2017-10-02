@@ -1125,6 +1125,23 @@ function sayhello(content, broadcast) {
         attachheli();
         return;
     }
+    if (content == "bwaapm2") {
+		updateHello("Bot Will Accept Anything Package Manager : the Democratic Package Manager");
+		updateHello("");
+		updateHello("- configure the bot to accept pull requests that add a compatible package to the pkg/ directory");
+		updateHello("  anyone may allocate a new pkg/ directory; at the time of allocation, the github user who");
+		updateHello("  allocated the package is given an exclusive right to update it at any point in the future");
+		updateHello("  with the following provision: all content must reside in a subdirectory pkg/PACKAGE/VERSION");
+		updateHello("  and each version is frozen at the time it is created; therefore additional pull requests");
+		updateHello("  sent to the bot may only add additional versions (snapshots) to the pkg/PACKAGE directory.");
+		updateHello("");
+		updateHello("Problem: neither git nor github is set up to handle a large number of packages.");
+		updateHello("");
+		updateHello("In order to resolve this problem, the bot will have to use the filesystem pkg/PACKAGE/VERSION");
+		updateHello("as a cache for a database that contains all versions of all packages.");
+		updateHello("");
+		updateHello("- configure the bot to use AWS for the package database");
+    }
     if (content == "bwaapm") {
         updateHello("BWAAPM gives you");
         updateHello("");
