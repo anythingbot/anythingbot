@@ -1270,6 +1270,43 @@ function sayhello(content, broadcast) {
     if (content == "life") {
         updateHello("circulating gold bug money");
     }
+    if (content == "cron") {
+		updateHello("Anythingbot cron");
+		updateHello("");
+		updateHello("The first cron job is as follows: make progress on the anythingbot history project.");
+		updateHello("");
+		updateHello("The anythingbot history project exists to document the history of lib/media.js.");
+		updateHello("");
+		updateHello("The lib/media.js file exists for some versions of the anythingbot,");
+		updateHello("going back to its introduction with bot will accept anything television BWAA TV");
+		updateHello("");
+		updateHello("Progress in the project is recorded in the ahp/ directory.");
+		updateHello("");
+		updateHello("Periodically, the bot will make progress on this project by cloning the repository");
+		updateHello("into a temporary directory, /tmp/ahp-YYYY-MM-DD/ where YYYY-MM-DD is the current");
+		updateHello("year, month, and date, if it does not already exist there, checking out a revision,");
+		updateHello("checking to see if lib/media exists in the revision, and if so, copying it to");
+		updateHello("ahp/YYYY-MM-DD/HH-MM-SS/lib/media.js where YYYY-MM-DD is the year, month, and date");
+		updateHello("the commit was made and HH-MM-SS is the hour, minute, and second the commit was made.");
+		updateHello("Doing this once is a single 'step'.");
+		updateHello("");
+		updateHello("The variable in working on a step is the commit, represented by a commit hash or point");
+		updateHello("in time, the time the commit was made.");
+		updateHello("");
+		updateHello("The bot records how much clock time was spent on making progress in a single step in");
+		updateHello("the media.ahp object. This object has a key for each step, and media.ahp[KEY].status");
+		updateHello("records the status of the step named by KEY, the commit hash. The status transition");
+		updateHello("diagram is {(new,active),(active,error),(active,term)}. The initial status is 'new'.");
+    }
+    if (content == "repeat") {
+		updateHello("Anythingbot repeat");
+		updateHello("");
+		updateHello("The anythingbot will repeat a special N times with the command");
+		updateHello("");
+		updateHello("repeat N SPECIAL");
+		updateHello("");
+		updateHello("where SPECIAL is the name of the special.");
+	}
     if (content == "hpm") {
         updateHello("Hierarchical package manager (hpm)");
         updateHello("");
