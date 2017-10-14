@@ -645,6 +645,8 @@ function pageLoaded() {
             cmdElt.appendChild(makespan(key));
             state.cmd = state.cmd + key;
         }
+        e.preventDefault();
+        return false;
     };
 }
 
