@@ -46,3 +46,6 @@ name.txt
 # Editor configs
 *.sublime-project
 .idea
+
+# large data files
+data/*.wav
