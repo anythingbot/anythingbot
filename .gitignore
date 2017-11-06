@@ -49,3 +49,4 @@ name.txt
 
 # large data files
 data/*.wav
+data/*.png
