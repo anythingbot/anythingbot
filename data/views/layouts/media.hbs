@@ -5,6 +5,7 @@
         <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
         <script src="https://w.soundcloud.com/player/api.js"></script>
         <script src="/js/lib/soundcloud.js"></script>
+        <script src="https://platform.instagram.com/en_US/embeds.js"></script>
 		<script src="/js/lib/cookie.js"></script>
         <script>
 
@@ -107,6 +108,9 @@ state.mediaNetwork = "dailymotion";
 {{#if data.mediaIsImage}}
 state.mediaNetwork = "image";
 {{/if}}
+{{#if data.mediaIsInstagram}}
+state.mediaNetwork = "instagram";
+{{/if}}
 {{#if data.mediaIsTitle}}
 state.mediaNetwork = "title";
 {{/if}}
@@ -119,7 +123,6 @@ state.mediaNetwork = "title";
     <body id="BodyVideo" onload="pageLoaded()">
     <center>
     <h3 id="Header" style="border: 2px dotted white">BWAA TV</h3>
-    <p>mercy shine remember arcata hates practice</p>
     <div class="ContentA">
         {{{body}}}
     </div>
