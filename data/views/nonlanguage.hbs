@@ -28,6 +28,7 @@
     var accSamplesRemaining = 0;
     var iAcc = 0; // write head index
     var jAcc; // read head index
+    var delay = 0.05; // latency
 
     function beatsPerMinuteDial(select) {
         if (select == "+") {
@@ -263,13 +264,17 @@
         var source = context.createBufferSource();
         source.buffer = buffer;
         source.connect(context.destination);
+        var margin = 0;
         if (! que || que < context.currentTime) {
-            // console.log("ff que");
-            que = context.currentTime + 0.1;
+            console.log("ff que");
+            que = context.currentTime + seconds;
             ffCount += 1;
             document.getElementById("ffCountDisplay").innerHTML = ffCount;
         } else {
-            // console.log("que margin: " + (que - context.currentTime));
+            console.log("que margin: " + (que - context.currentTime));
+            if (que - context.currentTime > delay) {
+                margin = 1000 * (que - context.currentTime - delay);
+            }
             syncCount += 1;
             document.getElementById("syncCountDisplay").innerHTML = syncCount;
         }
@@ -280,6 +285,7 @@
         if (modeDial == 1) {
             refreshArr();
         }
+        setTimeout(function () { playSound(); }, seconds * 1000 - 10 + margin);
     };
 
     function updateAcc() {
@@ -329,7 +335,7 @@
         document.getElementById('buttonAcc').disabled = true;
     };
     // playSound();
-    setInterval(function () { playSound(); }, 100);
+    setTimeout(function () { playSound(); }, 100);
 
 </script>
 
