@@ -82,6 +82,11 @@ function sendpulse() {
 
 var pulse = 0;
 function pageLoaded() {
+{{#if data.mediaIsAudio}}
+    var x = new Audio('{{data.mid}}');
+    x.currentTime = {{data.secondsElapsed}};
+    x.play();
+{{/if}}
 	console.log("handle = " + getCookie("handle"));
 	pulse = setInterval(sendpulse,2000);
 	setTimeout(function () { location.reload(); },
@@ -96,6 +101,9 @@ state = {
     mediaNetwork : 'personality'
 };
 
+{{#if data.mediaIsAudio}}
+state.mediaNetwork = "audio";
+{{/if}}
 {{#if data.mediaIsSoundcloud}}
 state.mediaNetwork = "soundcloud";
 {{/if}}

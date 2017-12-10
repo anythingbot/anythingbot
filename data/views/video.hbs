@@ -1,3 +1,7 @@
+{{#if data.mediaIsAudio}}
+<h1>{{data.title}}</h1>
+{{/if}}
+
 {{#if data.mediaIsYoutube}}
 <iframe width="336" height="189" src="https://www.youtube.com/embed/{{data.mid}}?start={{data.secondsElapsed}}&autoplay=1" frameborder="0" allowfullscreen></iframe>
 {{/if}}
