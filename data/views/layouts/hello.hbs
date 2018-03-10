@@ -1271,6 +1271,9 @@ function chaosbot() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "with and") {
+        updateHello("___");
+    }
     if (content == "gold") {
         updateHello("jewish folk tales");
     }
