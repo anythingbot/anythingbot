@@ -1271,6 +1271,9 @@ function chaosbot() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "NATO") {
+        updateHello("the french");
+    }
     if (content == "with and") {
         updateHello("___");
     }
