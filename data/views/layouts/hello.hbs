@@ -1342,6 +1342,46 @@ function chaosbot() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "insufficient sexual confidence") {
+        updateHello("probably American");
+    }
+    if (content == "prefix") {
+        updateHello("Let X be a monoid and x,y <- X. The element x is");
+        updateHello("a *prefix* of y, in symbols x <= y, if there exists");
+        updateHello("w <- X such that xw = y. The element x is a *proper*");
+        updateHello("prefix of y if x <= y and x != y, in symbols x < y.");
+    }
+    if (content == "antisymmetric") {
+        updateHello("1. reflexive binary relation");
+        updateHello("Let X be a set and <= a reflexive binary relation.");
+        updateHello("It is *antisymmetric* if");
+        updateHello("    (1) x <= y and y <= x imply x = y");
+        updateHello("2. monoid");
+        updateHello("Let X be a monoid and <= the prefix relation. It is");
+        updateHello("*antisymmetric* if <= is an antisymmetric relation.");
+    }
+    if (content == "cancellative") {
+        updateHello("Let X be a monoid. It is *cancellative* if for all");
+        updateHello("x,y,c <- X,");
+        updateHello("    (1) cx = cy implies x = y");
+        updateHello("    (2) xc = yc implies x = y");
+    }
+    if (content == "a.c. monoid") {
+        updateHello("antisymmetric cancellative monoid");
+    }
+    if (content == "graph") {
+        updateHello("Let X be an a.c. monoid. The *graph* of X is the");
+        updateHello("graph with vertices the elements of X and edges");
+        updateHello("{ (x,y) : x,y <- X and x < y and x != y and");
+        updateHello("there exists no w such that x < w < y");
+    }
+    if (content == "free a.c. monoid") {
+        updateHello("Let X be a nonempty set such that no sequence in X,");
+        updateHello("including the empty sequence, is an element of X.");
+        updateHello("The *free* a.c. monoid in X is the set of finite");
+        updateHello("sequences in X with multiplication the concatenation");
+        updateHello("operator.");
+    }
     if (content == "loud psycho white") {
         updateHello("hello, friend");
         updateHello("shall we, argue over style points");
