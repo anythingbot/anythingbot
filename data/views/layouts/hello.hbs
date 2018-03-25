@@ -34,11 +34,23 @@ function updateHello_impl(hellomsg, eltType, hasMarkup) {
         var j;
         var hellomsg2 = [];
         for (j = 0; j < hellomsg.length; j += 1) {
-            if (hasMarkup || hellomsg[j] != ' ') {
-               hellomsg2.push(hellomsg[j]);
-            } else {
-               hellomsg2.push('&nbsp;');
+            if (hasMarkup) {
+                hellomsg2.push(hellomsg[j]);
+                continue;
             }
+            if (hellomsg[j] == ' ') {
+                hellomsg2.push('&nbsp;');
+                continue;
+            }
+            if (hellomsg[j] == '<') {
+                hellomsg2.push('&lt;');
+                continue;
+            }
+            if (hellomsg[j] == '>') {
+                hellomsg2.push('&gt;');
+                continue;
+            }
+            hellomsg2.push(hellomsg[j]);
         }
         hellomsg = hellomsg2.join('');
         helloElt.innerHTML = hellomsg;
@@ -871,6 +883,65 @@ function drawheli() {
         drawHeliArray(params, radiuslimit);
     }
 }
+
+
+var star = ["Notation. For X a nonempty set, define <X> to be the free",
+"monoid in X, the set of finite sequences in X with",
+"concatenation the multiplication operator and zero sequence",
+"the identity. Let {} be the empty set.",
+"",
+"Definition. Let X be an a.c. monoid and Y the a.c. monoid",
+"(sequences in {0,1},cat). Let d : X -> Y be an encoding; it",
+"is *0-1* if d(x) <- v for all x <- X where v =",
+"{(,),(0,),(1,)}. For y <- v, define 1-y as",
+"",
+"",
+"	|  y   |  1-y  |",
+"	+------+-------+",
+"	| ( ,) |  ( ,) |",
+"	| (0,) |  (1,) |",
+"	| (1,) |  (0,) |",
+"",
+"Let X be an a.c. monoid. Let d : X -> Na be an encoding; it",
+"is a *step* encoding if d(x) <- {0,1} for all x <- X.",
+"",
+"Proposition. Let X be an a.c. monoid and T <= X a subset.",
+"There exists a step encoding d : X -> Na such that T =",
+"d^-1(1) iff",
+"",
+"  (1) for all t <- T and x <- X, tx <- T",
+"",
+"Proof. If d is a step encoding, then 1 >= d(tx) >= d(t) = 1,",
+"so (1) is satisfied. Going in the other direction, let",
+"",
+"  d_T(x) = { 0 if (prefixes of x) intersect T = {}",
+"		   { 1 otherwise.",
+"",
+"It is left as an exercise to the reader to prove that d_T is",
+"an encoding and T = d_T^-1(1).",
+"",
+"Proposition. Let X be an a.c. monoid and T,F <= X subsets.",
+"There exists a 0-1 encoding d : X -> Y such that d^-1(1) = T",
+"and d^-1(0) = F iff",
+"",
+"  (1) for all t <- T, (prefixes of t) intersect F = {}",
+"  (2) for all f <- F, (prefixes of f) intersect T = {}.",
+"",
+"Proof. Exercise.",
+"",
+"Definition. Let I be a nonempty set and X an a.c. monoid. An",
+"encoding c : X -> <I> is an I-*star* in X if c(x) <- { (,) }",
+"union { (i,) : i <- I } for all x <- X.",
+"",
+"Proposition. Let X be an a.c. monoid, I a nonempty set, and",
+"for all i<-I, 1_i <= X. There exists a star encoding c :",
+"X -> <I> such that 1_i = c^-1(i) for all i <- I iff",
+"",
+"  (1) for all i,j <- I such that i != j,",
+"	  (prefixes of 1_i) intersect 1_j = {}.",
+"",
+"Proof. Exercise."];
+
 
 var punk = [
 "February 19, 2018",
@@ -1795,6 +1866,12 @@ function sayhello(content, broadcast) {
     if (content == "child") {
         updateHello("MK-ULTRA test subject");
     }
+    if (content == "star") {
+        var i;
+        for (i = 0; i < star.length; i += 1) {
+             updateHello(star[i]);
+        }
+	}
     if (content == "punk") {
         var i;
         for (i = 0; i < punk.length; i += 1) {
