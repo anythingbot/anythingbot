@@ -943,6 +943,40 @@ var star = ["Notation. For X a nonempty set, define <X> to be the free",
 "Proof. Exercise."];
 
 
+var EMMW = ['EMMW',
+'',
+'The first task, I suppose, is to justify the ridiculous name.',
+'The next, is to explain to the mathematicians why the words,',
+'modern, and, world, are inserted into a textbook. The next,',
+'after that has been justified, is to explain to everyone why',
+'the modern world should be brought up. What is the fascination',
+'with the modern, is it the women? Is that it? Does this all',
+'boil down to the way girls become women? Let me explain something,',
+'there are many ways to misuse the mathematics here, and to',
+'astonishing effect.',
+'',
+'This work might have been called "Encodings, Mills, and Modern',
+'Women" with a sexy girl on the cover, or some other lewd idea.',
+'',
+'At any rate, we don\'t have to bother with that, other than to',
+'note that these remarks do in fact serve as raw data to the',
+'encodings and mills, in the form of a voice or audio or text',
+'or extract of the letters and the sequence and identification',
+'in the form of natural numbers, as well as the automatic logic',
+'of emotivism, the sliced bread of the K-12 classroom. Although',
+'emotivism appears to be a stuffy bunch of nonsense, it is in',
+'reality power over totalitarianism, the adrenaline and heart',
+'rate regulation, ecstasy.',
+'',
+'This could have been called "Ecstasy Music Mother Worship" and',
+'been treated as a toy for the Queen of England. The entire thing',
+'is essentially instructions for constructing what amounts to',
+'a paper mill of the imagination, and it makes substantial use of',
+'several works, and this is no place to get into the matter,',
+'other than to note that opportunities for mischief abound, and',
+'it is a good idea to develop the belief that these are obstacles',
+'at best, and if not at best, better to erect obstacles around.'];
+
 var punk = [
 "February 19, 2018",
 "",
@@ -1342,6 +1376,12 @@ function chaosbot() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "Encodings, Mills, and the Modern World") {
+        var i;
+        for (i = 0; i < EMMW.length; i += 1) {
+             updateHello(EMMW[i]);
+        }
+    }
     if (content == "___.com") {
         updateHello("a social network for people who tolerate jews");
     }
