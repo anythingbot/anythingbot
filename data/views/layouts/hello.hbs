@@ -248,7 +248,8 @@ var state = {
     ctx:null,
     shift:false,
     mode:'',
-    heli:0
+    heli:0,
+    armed:0
 };
 
 function makespan(c) {
@@ -1411,6 +1412,36 @@ function chaosbot() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "I sell night mare fuel,") {
+        state.armed = ! state.armed;
+        var i = "";
+        if (state.armed) {
+            i = "#abc";
+        }
+        document.getElementsByTagName("body")[0].style.backgroundColor = i;
+        return;
+    }
+    if (state.armed && content == "and night mare fuel aaccessories") {
+        updateHello("moov tww twwva");
+        updateHello("highjack reconnaixxance satellite with soular cell");
+        updateHello("get leverage over ruxxian eelectric powwa company");
+        updateHello("ask ruxxian eelectric powwa company to commit");
+        updateHello("genocide on american eelectric powwa company");
+        updateHello("saccade reader");
+        updateHello("network counter");
+        updateHello("negative knowledge transfer");
+        updateHello("lr parser");
+        updateHello("zfc set theory");
+        updateHello("is the eelectric powwa company?");
+        updateHello("committed to freedom of releigion");
+        updateHello("for no chill xxtian twwn girls");
+        updateHello("who roast voodoo doolls of saudee princes");
+        updateHello("with car batteries and pussy juice produced when");
+        updateHello("and a biofeedback dildo that listens to her");
+        updateHello("her body and makes her feel warm and secure,");
+        updateHello("");
+        updateHello("fuck fuck fuck fuck");
+    }
     if (content == "Encodings, Mills, and the Modern World") {
         var i;
         for (i = 0; i < EMMW.length; i += 1) {
