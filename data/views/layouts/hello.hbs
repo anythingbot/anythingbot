@@ -943,6 +943,41 @@ var star = ["Notation. For X a nonempty set, define <X> to be the free",
 "Proof. Exercise."];
 
 
+var WHAT = ['What the fuck is going on with set theory?',
+'',
+'Apparently nobody checked to make sure that ZFC set theory',
+'and Christianity are compatible. What this means is not for',
+'me to tell you. This kind of mutagenic mayhem is implicit in',
+'ZFC and what is considered ordinary study activity for any',
+'thing that crosses the mind.',
+'',
+'Now, we have to be clear here: we think this is all taking',
+'place with the idea that all of this activity serves at least',
+'the goal of unifying the activity of study in one place, so',
+'that there is a grand timepiece that lets all who care to',
+'know see that ZFC is as best as we can do for the moment.',
+'',
+'We might as well say that burning bibles is the best way',
+'we can illuminate the text of the bible. It is ghastly but',
+'it does work, it just worries and exhausts and, finally,',
+'scratches that scratch that provokes the modernist fantasy',
+'that perhaps there is some better way to illuminate the',
+'text of Halmos than stealing money and burning it, it is',
+'quite a trick. And it works in a strange way: the idea that',
+'we can substitute our imagination for people, it is actually',
+'ghastly.',
+'',
+'The problem is that ZFC set theory brings with it the idea',
+'that people are just another set, a set of bodies. We could',
+'also say people are just another set, a set of pairs of',
+'bodies. Bodies or pairs, it doesn\'t matter, once it is a set',
+'it becomes subject to the same horrific dehumanization process',
+'that produced the horrors of the 20th century. Nothing has',
+'happened to protect anyone. The system is totally exposed.',
+'',
+'That is what the fuck is going on with set theory.']
+
+
 var EMMW = ['EMMW',
 '',
 'The first task, I suppose, is to justify the ridiculous name.',
@@ -1380,6 +1415,12 @@ function sayhello(content, broadcast) {
         var i;
         for (i = 0; i < EMMW.length; i += 1) {
              updateHello(EMMW[i]);
+        }
+    }
+    if (content == "what the") {
+        var i;
+        for (i = 0; i < WHAT.length; i += 1) {
+             updateHello(WHAT[i]);
         }
     }
     if (content == "___.com") {
