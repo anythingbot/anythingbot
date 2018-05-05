@@ -1466,6 +1466,14 @@ function chaosbot() {
 }
 
 function sayhello(content, broadcast) {
+    if (content == "the will of the 9/11 terrorist") {
+        updateHello("the will of the 9/11 terrorist");
+        return;
+    }
+    if (content == "focus") {
+        updateHello("focus");
+        return;
+    }
     if (content.slice(0,5) == 'fast ') {
         var item = content.slice(5);
         if (state.qs.fast.length == 0) {
