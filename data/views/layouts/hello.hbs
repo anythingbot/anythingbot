@@ -249,8 +249,11 @@ var state = {
     shift:false,
     mode:'',
     heli:0,
-    armed:0
+    armed:0,
+    qs : { fast : [], slow : [], social : [], at : 0 }
 };
+
+// qs.at is a Date.getTime() value, milliseconds since 1970
 
 function makespan(c) {
     var cElt = document.createElement("span");
@@ -576,11 +579,62 @@ var keyActions4 = [
     function () { virtualKbd(' ',' ');},
 ];
 
+function loadqs() {
+    state.qs.fast = getCookie('qFAST').split(',');
+    state.qs.slow = getCookie('qSLOW').split(',');
+    state.qs.social = getCookie('qSOCIAL').split(',');
+    if (getCookie('qAT')) {
+        state.qs.at = Number(getCookie('qAT'));
+    } else {
+        state.qs.at = (new Date()).getTime();
+    }
+}
+
+function saveqs() {
+    setCookie('qFAST',state.qs.fast.join(),365);
+    setCookie('qSLOW',state.qs.slow.join(),365);
+    setCookie('qSOCIAL',state.qs.social.join(),365);
+    setCookie('qAT',state.qs.at + '',365)
+}
+
+function updateqs() {
+    var t = (new Date()).getTime();
+    var limit = (t - state.qs.at) / (1000 * 60 * 60);
+    var i;
+    for (i = 1; i < limit; i += 1) {
+        state.qs.fast.splice(0,0,'');
+        state.qs.slow.splice(0,0,'');
+        state.qs.social.splice(0,0,'');
+    }
+    state.qs.fast = state.qs.fast.slice(0,6);
+    state.qs.slow = state.qs.slow.slice(0,30);
+    state.qs.social = state.qs.social.slice(0,606);
+    state.qs.at = t;
+}
+
+function readout() {
+    updateqs();
+    var i;
+    updateHello("FAST");
+    for (i = 0; i < state.qs.fast.length; i += 1) {
+        updateHello(state.qs.fast[i]);
+    }
+    updateHello("SLOW");
+    for (i = 0; i < state.qs.slow.length; i += 1) {
+        updateHello(state.qs.slow[i]);
+    }
+    updateHello("SOCIAL");
+    for (i = 0; i < state.qs.social.length; i += 1) {
+        updateHello(state.qs.social[i]);
+    }
+}
+
 function pageLoaded() {
     document.body.style.fontFamily = "courier";
     getHandle();
     getTag();
     getOpentime();
+    loadqs();
     var i;
     var kbd0 = document.getElementById('kbddiv0');
     for (i = 0; i < kbd0.children.length; i += 1) {
@@ -1412,6 +1466,43 @@ function chaosbot() {
 }
 
 function sayhello(content, broadcast) {
+    if (content.slice(0,5) == 'fast ') {
+        var item = content.slice(5);
+        if (state.qs.fast.length == 0) {
+            state.qs.fast = [''];
+        }
+        state.qs.fast[0] = (state.qs.fast[0] + "") + item;
+        updateqs();
+        saveqs();
+        return;
+    }
+    if (content.slice(0,5) == 'slow ') {
+        var item = content.slice(5);
+        if (state.qs.slow.length == 0) {
+            state.qs.slow = [''];
+        }
+        state.qs.slow[0] = (state.qs.slow[0] + "") + item;
+        updateqs();
+        saveqs();
+        return;
+    }
+    if (content.slice(0,6) == 'social ') {
+        var item = content.slice(6);
+        if (state.qs.social.length == 0) {
+            state.qs.social = [''];
+        }
+        state.qs.social[0] = (state.qs.social[0] + "") + item;
+        updateqs();
+        saveqs();
+        return;
+    }
+    if (content == "readout") {
+        readout();
+        return;
+    }
+    if (content == "nonmanichaean astrayana buddhist") {
+        updateHello("nonmanichaean astrayana buddhist");
+    }
     if (content == "a legal right to commit torture") {
         updateHello("wealth");
     }
