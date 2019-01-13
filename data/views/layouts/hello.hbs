@@ -2248,6 +2248,10 @@ function sayhello(content, broadcast) {
              updateHello(punk[i]);
         }
     }
+    if (content == "guilt") {
+        updateHello("suicide");
+        return;
+    }
     if (content == "racelaws") {
         var i;
         for (i = 0; i < racelaws.length; i += 1) {
