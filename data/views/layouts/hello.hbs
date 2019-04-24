@@ -1477,6 +1477,10 @@ function sayhello(content, broadcast) {
         updateHello("focus");
         return;
     }
+    if (content == "Jesus") {
+        updateHello("homosexual");
+        return;
+    }
     if (content.slice(0,5) == 'fast ') {
         var item = content.slice(5);
         if (state.qs.fast.length == 0) {
